@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% extends 'user/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <div class="container">
+    <h1>Hi, {{ request.user.username }}</h1>
+    <h1>Welcome to Shopkart 🛒</h1>
+    <p>
+      <h3>📘 Shopping Guidelines</h3>
+      <h5>
+        Please read the following guidelines carefully before placing your order.  
+        These steps ensure a smooth, secure, and hassle-free shopping experience.
+      </h5>
+
+      <h6>📌 How Shopkart Works:</h6>
+      <ul>
+        <li>Browse through products from verified merchants.</li>
+        <li>Add your favorite items to the cart.</li>
+        <li>Place an order and complete payment securely via Razorpay.</li>
+        <li>Merchants will confirm and ship your order directly to your address.</li>
+        <li>Track your orders easily from your account dashboard.</li>
+        <li>In case of any issues, our support team is here to help you.</li>
+      </ul>
+
+      <h6>⚠️ Note:</h6>
+      <ul>
+        <li>Ensure your delivery address and contact details are correct before checkout.</li>
+        <li>Keep an eye on your order status for updates on shipping and delivery.</li>
+        <li>All payments are processed securely; Shopkart never shares your details.</li>
+      </ul>
+    </p>
+  </div>
+</div>
+{% endblock %}

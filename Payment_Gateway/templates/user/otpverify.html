@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'testapp/base.html' %}
+{% block body_block %}
+<div class="jumbotron" align="center">
+    <div class="container">
+        <h1>Sign-Up</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Enter OTP sent to your email:</label>
+            <input type="text" name="otp" required>
+            <button type="submit" class="btn btn-success">Verify</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

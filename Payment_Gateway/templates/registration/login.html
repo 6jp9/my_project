@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% extends 'user/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+    <div class="container" align="center">
+        <h2>LogIn</h2>
+        <form method="post">
+            {{form.as_p}}
+            {% csrf_token %}
+
+            <input type="submit" class="btn btn-success " style="width: 100px;" value="Login">
+            <a href="/" class="btn btn-secondary" style="width: 100px;">Cancel</a>
+
+        </form>
+
+    </div>
+</div>
+{% endblock %}

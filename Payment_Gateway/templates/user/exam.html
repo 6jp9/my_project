@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'testapp/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+    <h1>Test on:{{type}}</h1>
+    <h3>Difficulty:{{level}}</h3>
+    <br>
+     <form method="POST">
+  {% csrf_token %}
+  {% for q in question %}
+    <div class="container">
+      <h3>Q{{ forloop.counter }}: {{ q.question_text }}</h3>
+
+      <div>
+        <label>
+          <input type="radio" name="question_{{ q.id }}" value="A">
+          A. {{ q.option_a }}
+        </label><br>
+
+        <label>
+          <input type="radio" name="question_{{ q.id }}" value="B">
+          B. {{ q.option_b }}
+        </label><br>
+
+        <label>
+          <input type="radio" name="question_{{ q.id }}" value="C">
+          C. {{ q.option_c }}
+        </label><br>
+
+        <label>
+          <input type="radio" name="question_{{ q.id }}" value="D">
+          D. {{ q.option_d }}
+        </label><br>
+      </div>
+    </div>
+    <br><br>
+  {% endfor %}
+
+  <div class="container">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+</div>
+{% endblock %}
