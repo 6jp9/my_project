@@ -4,18 +4,21 @@
 {% block body_block %}
 <div class="jumbotron" style="height: 100vh;">
     <div class="container">
-        
         <form action="" method="GET">
             <h1>My Orders</h1>
-            <select name="level" class='btn btn-light dropdown-toggle' id="test_level">
+            <div style="text-align: right;">
+            <select name="level" class='btn btn-light dropdown-toggle'>
                 <option value="All">All</option>
                 <option value="Pendhing">Pendhing</option>
                 <option value="Canceled">Canceled</option>
                 <option value="Deliveried">Deliveried</option>
-            </select><br>
+            </select></div>
+            <div id="nullDiv">
+            <div style="text-align: center;">
             <h3>No Orders placed</h3>
             <br>
-            <a class="btn btn-success" href="/" style="position: absolute ; bottom: 0px;" >Continue Shopping</a>
+            <a class="btn btn-success" href="/">Continue Shopping</a>
+            </div></div>
         </form>
     </div>
 </div>
