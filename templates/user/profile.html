@@ -3,13 +3,50 @@
 {% block body_block %}
 <div class="jumbotron">
     <div class="container">
-        <h1>Profile</h1>
-        <div id="nullDiv">  
-            <div style="text-align: center;">
-                <h3>Please Login to continue........</h3><br>
-                <a href="#" class="btn btn-success">Log-In</a>
-            </div>
+       <h1>Profile</h1>
+<div id="nullDiv">
+    {% if request.user.is_authenticated %}
+        <div style="text-align: center;">
+            <h2>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+            <table class="table table-bordered mt-4">
+                <tr>
+                    <th>Username</th>
+                    <td>{{ request.user.username }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ request.user.email }}</td>
+                </tr>
+                {% if request.user.customer %}
+                <tr>
+                    <th>Phone</th>
+                    <td>{{ request.user.customer.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{ request.user.customer.address }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <th>Phone</th>
+                    <td>--</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>--</td>
+                </tr>
+                {% endif %}
+            </table>
+            <a href="#" class="btn btn-success mt-3">Add & Update Details</a>
         </div>
+    {% else %}
+        <div style="text-align: center;">
+            <h3>Please Login to continue........</h3><br>
+            <a href="/accountslogin/" class="btn btn-success">Log-In</a>
+        </div>
+    {% endif %}
+</div>
+
     </div>
 </div>
 {% endblock %}
