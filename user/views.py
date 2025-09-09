@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from .forms import SignupForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from .models import Customers
+from django.utils.timezone import now
 
 # Create your views here.
 def profile(request):
@@ -44,6 +46,17 @@ def verify_otp(request):
             user.set_password(data['password'])  # To Hash the user text password
             user.save()
 
+
+            #inserting the similar user records into customer table as well
+            Customers.objects.create(
+            username=user.username,
+            email=user.email,
+            first_name=user.first_name,
+            last_name=user.last_name,
+            created_at=now()
+            )
+
+
             # Clear session data
             del request.session['signup_data']
             del request.session['otp']
@@ -73,7 +86,7 @@ def signup(request):
             send_mail(
                 subject='Shop-Kart Email Verification',
                 message = f"Hello {form.cleaned_data['username']},\nYour OTP for verification is {otp}.",
-                from_email='##############@gmail.com',
+                from_email='jayaprakash1405401@gmail.com',
                 recipient_list=[form.cleaned_data['email']],
                 fail_silently=False,
             )
@@ -85,3 +98,4 @@ def signup(request):
 
 def logout_view(request):
     return render(request,'user/custom_logout.html')
+
