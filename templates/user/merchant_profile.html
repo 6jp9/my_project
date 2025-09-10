@@ -3,41 +3,34 @@
 {% block body_block %}
 <div class="jumbotron">
     <div class="container">
-       <h1>Profile</h1>
+       <h1>Merchant Profile</h1>
 <div id="nullDiv">
-    {% if request.user.is_authenticated %}
+    {% if is_merchant %}
         <div style="text-align: center;">
-            <h2>Welcome, {{ customer.first_name }} {{ customer.last_name }}</h2>
+            <h2>Welcome! {{ merchant.username }}</h2>
             <table class="table table-bordered mt-4">
                 <tr>
                     <th>Username</th>
-                    <td>{{ customer.username }}</td>
+                    <td>{{ merchant.username }}</td>
                 </tr>
                 <tr>
                     <th>Email</th>
-                    <td>{{ customer.email }}</td>
+                    <td>{{ merchant.email }}</td>
                 </tr>
-                {% if customer %}
                 <tr>
                     <th>Phone</th>
-                    <td>{{ customer.phone }}</td>
+                    <td>{{ merchant.phone }}</td>
+                </tr>
+                <tr>
+                    <th>Business Name</th>
+                    <td>{{ merchant.business_name }}</td>
                 </tr>
                 <tr>
                     <th>Address</th>
-                    <td>{{ customer.address }}</td>
+                    <td>{{ merchant.address }}</td>
                 </tr>
-                {% else %}
-                <tr>
-                    <th>Phone</th>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td>--</td>
-                </tr>
-                {% endif %}
             </table>
-            <a href="/adduserdtls/{{request.user.username}}" class="btn btn-success mt-3">Add & Update Details</a>
+            <a href="#" class="btn btn-success mt-3">Test</a>
         </div>
     {% else %}
         <div style="text-align: center;">

@@ -1,14 +1,23 @@
 from django.shortcuts import render,redirect
-from .forms import SignupForm
+from .forms import SignupForm,CustomerDetailsForm,MerchantDetailsForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
-from .models import Customers
+from .models import Customers,Merchants
 from django.utils.timezone import now
 
 # Create your views here.
 def profile(request):
-    return render (request,'user/profile.html')
+    customer = None
+    if request.user.is_authenticated:
+        try:
+            customer = Customers.objects.get(email=request.user.email)
+        except Customers.DoesNotExist:
+            customer = None
+    return render(request, "user/profile.html", {"customer": customer})
 
+def merchant_profile(request,username):
+    merchant = Merchants.objects.get(username=username)
+    return render(request,'user/merchant_profile.html',{'merchant':merchant})
 ############################################################
 
 # def signup(request):
@@ -98,4 +107,33 @@ def signup(request):
 
 def logout_view(request):
     return render(request,'user/custom_logout.html')
+
+
+##################################################################
+
+def customer_form(request,username):
+    temp = Customers.objects.get(username=username)
+    form = CustomerDetailsForm(instance=temp)
+    if request.method == 'POST':
+        form = CustomerDetailsForm(request.POST,instance=temp)
+        if form.is_valid():
+            form.save()
+        return redirect('/profile')
+    return render(request,'user/signup.html',{'form':form})
+
+def merchant_form(request,username):
+    temp = Customers.objects.get(username=username)
+    if request.method == 'POST':
+        form = MerchantDetailsForm(request.POST)
+        if form.is_valid():
+            merchant = form.save(commit=False)
+            merchant.username = temp.username
+            merchant.email = temp.email
+            merchant.created_at = now()
+            merchant.save()
+        return redirect('/')
+    else:
+        form = MerchantDetailsForm()
+    return render(request,'user/signup.html',{'form':form})
+
 

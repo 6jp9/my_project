@@ -19,7 +19,7 @@ class Customers(models.Model):
 
 class Merchants(models.Model):
     merchant_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100, blank=True, null=True)
+    username = models.CharField(max_length=50, blank=True, null=True)
     email = models.CharField(unique=True, max_length=100, blank=True, null=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
     business_name = models.CharField(max_length=150, blank=True, null=True)

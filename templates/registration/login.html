@@ -2,8 +2,9 @@
 {% extends 'user/base.html' %}
 {% block body_block %}
 <div class="jumbotron">
-    <div class="container" align="center">
-        <h2>LogIn</h2>
+    <div class="container">
+        <h1>LogIn</h1>
+        <div id="nullDiv">
         <form method="post">
             {{form.as_p}}
             {% csrf_token %}
@@ -12,7 +13,7 @@
             <a href="/" class="btn btn-secondary" style="width: 100px;">Cancel</a>
 
         </form>
-
+</div>
     </div>
 </div>
 {% endblock %}
