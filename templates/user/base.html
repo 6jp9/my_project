@@ -17,11 +17,12 @@
   <title>Document</title>
 </head>
 
-<body><nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: white;">
   <div class="container">
       
-    <a class="navbar-brand" href="{% url 'home' %}"><img src="/static/media/cart_logo.png" alt="logo" style="height: 5vh;">Shop-Kart</a>
-    <ul class="navbar-nav mr-auto">
+    <a class="navbar-brand" href="{% url 'home' %}" style="position: relative; right: 50px;"><img src="/static/media/cart_logo.png" alt="logo" style="height: 5vh;">Shop-Kart</a>
+    <ul class="navbar-nav mr-auto" style="width: 300px;display: flex;justify-content: space-evenly;">
       <li class="nav-item">
         <a class="nav-link" href="{% url 'home' %}">Home</a>
       </li>
@@ -50,11 +51,18 @@
         </a>
       <div class="dropdown-menu">
           <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
-          {% if is_merchant %}
+        {% if request.user.is_superuser %}
+          <div style="text-align: center;">
+            <strike>Merchant Profile</strike>
+          </div>
+        {% else %}
+            {% if is_merchant %}
           <a class="dropdown-item" href="\merchant_profile/{{ request.user.username }}">Merchant Profile</a>
           {% else %}
           <a class="dropdown-item" href="\merchant_signup/{{ request.user.username }}">Register as Merchant</a>
           {% endif %}
+          {% endif %}
+          
         <div class="dropdown-divider" style='align-items: center;'></div>
         <form method="post" action="{% url 'logout' %}" class="dropdown-item">
             {% csrf_token %}

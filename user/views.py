@@ -18,25 +18,8 @@ def profile(request):
 def merchant_profile(request,username):
     merchant = Merchants.objects.get(username=username)
     return render(request,'user/merchant_profile.html',{'merchant':merchant})
-############################################################
-
-# def signup(request):
-#     if request.method == 'POST':
-#         form = SignupForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.set_password(form.cleaned_data['password']) 
-#             user.save()
-#             return HttpResponseRedirect('/accountslogin')
-#     else:
-#         form = SignupForm()
-#     return render(request, 'user/signup.html', {'form': form})
-# def logout_view(request):
-#     return render(request,'user/custom_logout.html')
-
 
 #############################################################
-
 
 def verify_otp(request):
     data = request.session.get('signup_data')
@@ -56,7 +39,7 @@ def verify_otp(request):
             user.save()
 
 
-            #inserting the similar user records into customer table as well
+            #Inserting the user records into customer table as well
             Customers.objects.create(
             username=user.username,
             email=user.email,
@@ -64,7 +47,6 @@ def verify_otp(request):
             last_name=user.last_name,
             created_at=now()
             )
-
 
             # Clear session data
             del request.session['signup_data']
