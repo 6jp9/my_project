@@ -29,6 +29,27 @@
         <li>All payments are processed securely; Shopkart never shares your details.</li>
       </ul>
     </p>
+ <div class="container"><br>
+  {% if product %}
+  <div class="row" style="gap: 20px;">
+    {% for i in product %}
+      <div class="card">
+        <img src="{{i.image.url}}" alt="cart" height="250">
+        <div class="card-body">
+          <h5 class="card-title">{{i.name}}</h5>
+      <p class="card-text">$.{{i.price}}</p>
+          <a href="#" class="btn btn-primary">View Details</a>
+        </div>
+      </div>
+    {% endfor %}
+    {% else %}
+    <h2 style="color: aliceblue;">No Items inserted....!!!</h2>
+    {% endif %}
   </div>
+</div>
+</div>
+
+  </div>
+
 </div>
 {% endblock %}
