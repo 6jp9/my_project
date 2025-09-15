@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% extends 'user/base.html' %}
+{% block body_block %}
+<div class="container" style="height: 50vh;margin-top:50px;">
+    {% if product %}
+    <div class="row">
+        <div>
+            <img src="{{product.image.url}}" height="300" width="300" alt="image">
+        </div>
+        <div class="col-md-6" style="color: rgb(0, 0, 0);">
+            <h2> {{product.name}} </h2>
+            <h4>$.{{product.price}}</h4>
+            <h5>{{product.stock}}</h5>
+            <h6> {{product.description}}</h6>
+            <a class="btn btn-warning" href="#">Add to cart</a>
+            <a class="btn btn-success" href="#">Buy</a>
+        </div>
+    </div>
+    {% else %}
+     <div class="row">
+    <div>
+        <img src="{{ item.image }}" height="300" width="300">
+    </div>
+    <div class="col-md-6" style="color: rgb(0, 0, 0);">
+        <h2>{{ item.title }}</h2>
+        <h4>$ {{ item.price }}</h4>
+        <h5>In-Stock: {{ item.rating.count }}</h5>
+        <p>{{ item.description }}</p>
+
+        <!-- Quantity Selector -->
+        <div class="mb-3">
+            <label for="quantity" class="form-label"><strong>Quantity:</strong></label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ item.rating.count }}" class="form-control" style="width: 100px; display: inline-block;">
+        </div>
+
+        <!-- Add to Cart / Buy Buttons -->
+        <form method="post" action="/add_to_cart/{{ item.id }}/" style="display:inline-block;">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ item.id }}">
+            <input type="hidden" id="hidden-qty" name="quantity" value="1">
+            <button type="submit" class="btn btn-warning">Add to Cart</button>
+        </form>
+
+        <a class="btn btn-success" href="#">Buy</a>
+    </div>
+</div>
+
+    {% endif %}
+</div>
+{% endblock %}
