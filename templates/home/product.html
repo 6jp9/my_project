@@ -10,9 +10,21 @@
         <div class="col-md-6" style="color: rgb(0, 0, 0);">
             <h2> {{product.name}} </h2>
             <h4>$.{{product.price}}</h4>
-            <h5>{{product.stock}}</h5>
-            <h6> {{product.description}}</h6>
-            <a class="btn btn-warning" href="#">Add to cart</a>
+            <h5>In-Stock:{{product.stock}}</h5>
+            <h6>Note:{{product.description}}</h6>
+                    <!-- Quantity Selector -->
+        <div class="mb-3">
+            <label for="quantity" class="form-label"><strong>Quantity:</strong></label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control" style="width: 100px; display: inline-block;">
+        </div>
+
+        <!-- Add to Cart / Buy Buttons -->
+        <form method="post" action="/cart/add/{{ product.product_id }}/" style="display:inline-block;">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{ product.product_id }}">
+    <input type="hidden" id="hidden-qty" name="quantity" value="1">
+    <button type="submit" class="btn btn-warning">Add to Cart</button>
+</form>
             <a class="btn btn-success" href="#">Buy</a>
         </div>
     </div>

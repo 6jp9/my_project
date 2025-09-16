@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import Customers,Merchants
 from django.utils.timezone import now
+from home.models import Products
 
 # Create your views here.
 def profile(request):
@@ -17,7 +18,8 @@ def profile(request):
 
 def merchant_profile(request,username):
     merchant = Merchants.objects.get(username=username)
-    return render(request,'user/merchant_profile.html',{'merchant':merchant})
+    products = Products.objects.filter(merchant_id = merchant.merchant_id)
+    return render(request,'user/merchant_profile.html',{'merchant':merchant,'products':products})
 
 #############################################################
 

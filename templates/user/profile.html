@@ -1,61 +1,69 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
-<div class="jumbotron">
-    <div class="container">
-       <h1>Profile</h1>
-<div id="nullDiv">
-    
-    {% if request.user.is_authenticated %}
+<div class="jumbotron py-4">
+  <div class="container">
+    <h1>Profile</h1>
+    <div id="nullDiv">
+
+      {% if request.user.is_authenticated %}
+
         {% if request.user.is_superuser %}
-        <div style="text-align: center;">
-            <h2>
-                Hello, {{ request.user.username }}
-            </h2>
+        <div class="text-center">
+          <h2 class="mb-3">Hello, {{ request.user.username }} 👑</h2>
+          <p class="text-muted">You are logged in as a superuser.</p>
         </div>
+
         {% else %}
-        <div style="text-align: center;">
-            <h2>Welcome, {{ customer.first_name }} {{ customer.last_name }}</h2>
-            <table class="table table-bordered mt-4">
-                <tr>
-                    <th>Username</th>
-                    <td>{{ customer.username }}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ customer.email }}</td>
-                </tr>
-                {% if customer %}
-                <tr>
-                    <th>Phone</th>
-                    <td>{{ customer.phone }}</td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td>{{ customer.address }}</td>
-                </tr>
-                {% else %}
-                <tr>
-                    <th>Phone</th>
-                    <td>--</td>
-                </tr>
-                <tr>
-                    <th>Address</th>
-                    <td>--</td>
-                </tr>
-                {% endif %}
-            </table>
-            <a href="/adduserdtls/{{request.user.username}}" class="btn btn-success mt-3">Add & Update Details</a>
+        <div class="text-center">
+          <h2 class="mb-4">Welcome, {{ customer.first_name }} {{ customer.last_name }}</h2>
+
+          <table class="table table-striped table-bordered w-75 mx-auto shadow-sm">
+            <tr>
+              <th>Username</th>
+              <td>{{ customer.username }}</td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td>{{ customer.email }}</td>
+            </tr>
+            {% if customer %}
+            <tr>
+              <th>Phone</th>
+              <td>{{ customer.phone }}</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>{{ customer.address }}</td>
+            </tr>
+            {% else %}
+            <tr>
+              <th>Phone</th>
+              <td>--</td>
+            </tr>
+            <tr>
+              <th>Address</th>
+              <td>--</td>
+            </tr>
+            {% endif %}
+          </table>
+
+          <div class="mt-4">
+            <a href="/adduserdtls/{{ request.user.username }}" class="btn btn-primary">
+              Add / Update Details
+            </a>
+          </div>
         </div>
         {% endif %}
-    {% else %}
-        <div style="text-align: center;">
-            <h3>Please Login to continue........</h3><br>
-            <a href="/accountslogin/" class="btn btn-success">Log-In</a>
-        </div>
-    {% endif %}
-</div>
+
+      {% else %}
+      <div class="text-center">
+        <h3 class="mb-3">Please Login to continue...</h3>
+        <a href="/accountslogin/" class="btn btn-success">Log In</a>
+      </div>
+      {% endif %}
 
     </div>
+  </div>
 </div>
 {% endblock %}
