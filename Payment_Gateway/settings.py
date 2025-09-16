@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'Payment_Gateway.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shopkart',
+        'NAME': 'shopkartdb',
         'USER': 'root',
         'PASSWORD': '12345',
         'HOST' : 'localhost',

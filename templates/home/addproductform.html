@@ -6,13 +6,10 @@
     <h1 class="mb-4 text-center">Product Details</h1>
     <div id="nullDiv" class="d-flex justify-content-center" style="height: 80vh;">
       <div class="card shadow-sm p-4 w-50">
-        <form method="POST" novalidate>
-          {% csrf_token %}
-          {{ form.as_p }}
-
-          <div class="text-center mt-3">
-            <input type="submit" class="btn btn-success btn-lg px-4" value="Submit">
-          </div>
+        <form method="POST" enctype="multipart/form-data">
+            {{form.as_p}}
+            {% csrf_token %}
+            <input type="submit" class="btn btn-success btn-lg" value="submit">
         </form>
       </div>
     </div>

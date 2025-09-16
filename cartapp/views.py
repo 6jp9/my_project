@@ -3,6 +3,7 @@ from home.models import Products
 from .models import Cart
 from user.models import Customers
 from django.contrib.auth.decorators import login_required
+from django.utils.timezone import now
 # Create your views here.
 
 def cart(request):
@@ -19,7 +20,7 @@ def add_to_cart(request, product_id):
             customer=customer,
             product=product,
             quantity=quantity,
-            status="pending"
+            created_at = now()
         )
     return redirect("cart")
 
