@@ -1,15 +1,13 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ProductForms
-from user.models import Merchants
+from user.models import Merchants,Customers
 from .models import Products
+from cartapp.models import Cart
 import requests
 # Create your views here.
 def home(request):
     Product = Products.objects.all()
-    url = f"https://fakestoreapi.com/products/"
-    response = requests.get(url)
-    api_product = response.json()
-    return render(request,'home/home.html',{'product':Product,'api':api_product})
+    return render(request,'home/home.html',{'product':Product})
 def orders(request):
     return render(request,'home/my_orders.html')
 def add_product(request,username):
@@ -27,10 +25,9 @@ def add_product(request,username):
 
 def product_dtls(request,product_id):
     product = Products.objects.get(product_id=product_id)
-    return render(request,'home/product.html',{'product':product})
 
-def api_product_dtls(request,id):
-    url = f'https://fakestoreapi.com/products/{id}'
-    response = requests.get(url)
-    item = response.json()
-    return render(request,'home/product.html',{'item':item})
+    in_cart=  False
+    if request.user.is_authenticated:
+        customer = Customers.objects.get(username = request.user.username)
+        in_cart = Cart.objects.filter(customer=customer,product=product)
+    return render(request,'home/product.html',{'product':product,'in_cart':in_cart})

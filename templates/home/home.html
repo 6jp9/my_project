@@ -42,19 +42,6 @@
         </div></div>
       </div>
     {% endfor %}
-    {% for j in api %}
-  <div class="card" style="width: 260px; height: 380;">
-    <img src="{{ j.image }}" alt="cart" height="180" width="260">
-    <div class="card-body">
-      <div style="height: 80px;">
-      <h5 class="card-title">{{ j.title|truncatechars:40 }}</h5>
-      </div>
-      <div style="height: 80px; width: auto;">
-      <p class="card-text">$.{{ j.price }}</p>
-      <a href="/api_product/{{ j.id }}" class="btn btn-primary">View Details</a>
-    </div></div>
-  </div>
-{% endfor %}
   </div>
 </div>
 
