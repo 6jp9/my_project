@@ -35,11 +35,12 @@
       <div class="card" style="width: 260px;height: 380;">
         <img src="{{i.image.url}}" alt="cart" height="180" width="260">
         <div class="card-body">
-          <h5 class="card-title">{{i.name|truncatechars:25}}</h5>
+          <h5 class="card-title" style="height: 40%;">{{i.name|truncatechars:25}}</h5>
           <div>
       <p class="card-text">$.{{i.price}}</p>
           <a href="\product/{{ i.product_id }}" class="btn btn-primary">View Details</a>
-        </div></div>
+        </div>
+      </div>
       </div>
     {% endfor %}
   </div>

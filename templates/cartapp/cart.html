@@ -14,8 +14,9 @@
         <img src="{{i.product.image.url}}" alt="cart" height="180" width="260">
         <div class="card-body">
           <h5 class="card-title">{{i.product.name|truncatechars:25}}</h5>
+          <h5>Quantity:{{ i.quantity }}</h5>
           <div>
-      <p class="card-text">$.{{i.product.price}}</p>
+      <p class="card-text">$.{{i.price}}</p>
       <div style="text-align: center;">
           <a href="\product/{{ i.product_id }}" class="btn btn-primary">View Details</a>
           <a href="\delete/{{ i.cart_id }}" class="btn btn-danger" style="position: relative;left: 10px;">X</a>
@@ -24,13 +25,18 @@
     {% endfor %}
     </div></div>
         {% else %}
+        <div id="nullDiv"><div>
       <h3>Cart Is Empty....</h3>
       <br>
       <a class="btn btn-success" href="/">Continue Shopping</a>
+      </div></div>
         {% endif %}
         {% else %}
+        <div id="nullDiv">
+          <div>
         <h3>Login to view</h3>
-        <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+        </div></div>
        {% endif %}
         
   

@@ -20,12 +20,24 @@ def add_to_cart(request, product_id):
     if request.method == "POST":
         customer = get_object_or_404(Customers, username=request.user.username)
         product = get_object_or_404(Products, product_id=product_id)
-        # Use request.user.username to match the CharField in Customers
-        Cart.objects.create(
+
+        # Get quantity from form (default to 1 if not provided)
+        quantity = int(request.POST.get("quantity", 1))
+
+        # Check if product already in cart
+        cart_item, created = Cart.objects.get_or_create(
             customer=customer,
             product=product,
-            created_at = now()
+            defaults={"quantity": quantity, "price": product.price * quantity, "status": "active"}
         )
+
+        if not created:
+            # If already exists, just update quantity
+            cart_item.quantity += quantity
+            if cart_item.quantity>product.stock:
+                cart_item.quantity=product.stock
+            cart_item.update_price()
+            cart_item.save()
     return redirect("cart")
 
 

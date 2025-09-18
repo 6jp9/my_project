@@ -43,6 +43,7 @@ def verify_otp(request):
 
             #Inserting the user records into customer table as well
             Customers.objects.create(
+            user=user,
             username=user.username,
             email=user.email,
             first_name=user.first_name,
@@ -111,6 +112,7 @@ def merchant_form(request,username):
         form = MerchantDetailsForm(request.POST)
         if form.is_valid():
             merchant = form.save(commit=False)
+            merchant.user=temp.user
             merchant.username = temp.username
             merchant.email = temp.email
             merchant.created_at = now()

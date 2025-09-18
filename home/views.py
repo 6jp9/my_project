@@ -25,9 +25,12 @@ def add_product(request,username):
 
 def product_dtls(request,product_id):
     product = Products.objects.get(product_id=product_id)
-
     in_cart=  False
     if request.user.is_authenticated:
         customer = Customers.objects.get(username = request.user.username)
         in_cart = Cart.objects.filter(customer=customer,product=product)
-    return render(request,'home/product.html',{'product':product,'in_cart':in_cart})
+        if in_cart.exists():
+            quantity = in_cart.first().quantity
+        else:
+            quantity=0
+    return render(request,'home/product.html',{'product':product,'in_cart':in_cart,'quantity':quantity})
