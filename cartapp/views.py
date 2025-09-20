@@ -20,11 +20,7 @@ def add_to_cart(request, product_id):
     if request.method == "POST":
         customer = get_object_or_404(Customers, username=request.user.username)
         product = get_object_or_404(Products, product_id=product_id)
-
-        # Get quantity from form (default to 1 if not provided)
         quantity = int(request.POST.get("quantity", 1))
-
-        # Check if product already in cart
         cart_item, created = Cart.objects.get_or_create(
             customer=customer,
             product=product,
@@ -32,7 +28,6 @@ def add_to_cart(request, product_id):
         )
 
         if not created:
-            # If already exists, just update quantity
             cart_item.quantity += quantity
             if cart_item.quantity>product.stock:
                 cart_item.quantity=product.stock
@@ -47,3 +42,34 @@ def delete_from_cart(request, cart_id):
         cart_item.delete()
     return redirect("cart")
 
+
+
+def increment_item(request, cart_id):
+    if request.user.is_authenticated:
+        cart_item = get_object_or_404(Cart, cart_id=cart_id)
+        product = cart_item.product
+        stock = product.stock
+
+        if cart_item.quantity < stock:
+            cart_item.quantity += 1
+        else:
+            cart_item.quantity = stock
+        cart_item.update_price()
+        cart_item.save()
+
+        return redirect('cart')  # Redirect to cart page after increment
+
+    return redirect('login')
+
+
+def decrement_item(request, cart_id):
+    if request.user.is_authenticated:
+        cart_item = get_object_or_404(Cart, cart_id=cart_id)
+        if cart_item.quantity > 1:
+            cart_item.quantity -= 1
+            cart_item.update_price()
+            cart_item.save()
+        else:
+            cart_item.delete()
+        return redirect('cart')
+    return redirect('login')

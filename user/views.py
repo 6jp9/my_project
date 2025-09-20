@@ -1,10 +1,11 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import SignupForm,CustomerDetailsForm,MerchantDetailsForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import Customers,Merchants
 from django.utils.timezone import now
 from home.models import Products
+from django.urls import reverse
 
 # Create your views here.
 def profile(request):
@@ -123,3 +124,9 @@ def merchant_form(request,username):
     return render(request,'user/signup.html',{'form':form})
 
 
+def delete_item(request,product_id):
+    if request.user.is_authenticated:
+        product = get_object_or_404(Products,product_id=product_id)
+        product.delete()
+        return redirect(reverse('merchant_profile',args=[request.user.username]))
+    return render('home')

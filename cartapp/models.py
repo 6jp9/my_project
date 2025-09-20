@@ -10,7 +10,7 @@ class Cart(models.Model):
     cart_id = models.AutoField(primary_key=True)
     customer = models.ForeignKey(em.Customers, on_delete=models.CASCADE, related_name='carts', blank=True, null=True)
     product = models.ForeignKey(hm.Products, on_delete=models.CASCADE, blank=True, null=True)
-    quantity = models.PositiveIntegerField(default=1)  # 👈 New field
+    quantity = models.PositiveIntegerField(default=1)
     price = models.FloatField(default=0,max_length=10, validators=[MinValueValidator(0)])    
     status = models.CharField(max_length=10, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

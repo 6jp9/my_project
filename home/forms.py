@@ -6,6 +6,7 @@ class ProductForms(forms.ModelForm):
         fields = ['name', 'description', 'price', 'stock','image']
     def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
+       
        # Make all fields required
        for field_name, field in self.fields.items():
            field.required = True

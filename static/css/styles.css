@@ -13,7 +13,7 @@
 
 
 h1 {
-    background-color: rgb(222, 243, 103);
+    background-color: rgb(204, 204, 202);
     position: relative;
     border-bottom: 1px solid;
     width: 40%;
@@ -29,10 +29,17 @@ h1 {
     margin-top: 4px;
 }
 
+#product-description {
+    white-space: normal; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 600px;
+}
+
 
 @keyframes slideIn {
   from {
-    left: -100%;
+    left: -10%;
     opacity: 0;
   }
   to {
