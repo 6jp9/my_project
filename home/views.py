@@ -47,3 +47,5 @@ def buy_item(request,cart_id):
 
 
     
+def TandC_view(request):
+    return render(request,'home/tc.html')

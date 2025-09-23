@@ -3,26 +3,34 @@
 {% block body_block %}
 <div class="container mt-5">
     <h1>Conform Details</h1><br>
-    <div class="row align-items-center">
-
+    <div class="row align-items-center" style="display: flex; justify-content: center;align-items: center; width: ;">
+        
         <!-- Product Image -->
+         <div style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: 1000px;height: fit-content; display: flex; justify-content: center; align-items: center;">
         <div class="col-md-5 text-center mb-4">
             <img src="{{ item.image.url }}" class="img-fluid rounded shadow" alt="{{ item.name }}">
         </div>
 
         <!-- Product Details -->
-        <div class="col-md-7">
+        <div class="col-md-7" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: max-content;">
             <h2 class="fw-bold mb-3">{{ item.name }}</h2>
 
             <!-- Price -->
             <h4 class="text-success fw-bold mb-2">$.{{ cart.price }}</h4>
-
-            <!-- Stock -->
-            <h5 class="text-muted mb-3">Quantity: {{ cart.quantity }}</h5>
             <hr>
-
+            <!-- Stock -->
+             <div>
+          <h5 style="padding: 10px;">Quantity:
+            <a href="\decrement/{{ cart.cart_id }}" class="btn btn-outline-primary btn-sm">-</a>
+            {{ cart.quantity }}
+            <a href="\increment/{{ cart.cart_id }}" class="btn btn-outline-primary btn-sm">+</a>
+          </h5>
+          </div>
+            
+            </div>
+            </div>
             <!-- Customer Details -->
-            <div class="mt-4" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: max-content;">
+            <div class="mt-4" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: 1000px;height: fit-content;">
                 <h2 class="fw-bold mb-3">Customer Details</h2>
                 <hr>
                 <h4><strong>Name:</strong> {{ buyer.first_name }} {{ buyer.last_name }}</h4>
@@ -31,8 +39,33 @@
                 <br>
                 <a class="btn btn-info w-100" href="{% url 'customer_dtls' buyer.username %}"><i class="bi bi-bag-check"></i> Edit Details</a>
             </div>
-        </div>
-
+    
+    <!-- Terms and Conditions Section -->
+<div class="mt-5" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: 1000px;">
+    <h2 class="fw-bold mb-3" style="text-align: center;">Terms and Conditions</h2>
+    <hr>
+    <p>By placing an order on <strong>Shop-Kart</strong>, you agree to the following terms and conditions:</p>
+    <ul>
+        <li>All orders are subject to product availability and confirmation of payment.</li>
+        <li>Prices and availability are subject to change without notice.</li>
+        <li>Delivery times are estimates and may vary due to courier or unforeseen circumstances.</li>
+        <li>Returns and refunds are subject to our Return Policy.</li>
+        <li>You are responsible for providing accurate shipping and contact details.</li>
+        <li>Shop-Kart reserves the right to update terms at any time.</li>
+    </ul>
+<!-- Accept Checkbox -->
+<form action="#" method="post">
+    {% csrf_token %}
+    <div class="form-check mt-3">
+        <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
+        <label class="form-check-label" for="acceptTerms">
+            I have read and accept the 
+            <a href="{% url 'terms&conditions' %}" target="_blank">Terms and Conditions</a>.
+        </label>
     </div>
+    <button type="submit" class="btn btn-success w-100 mt-3">Continue Payment</button>
+</form>
+</div>
+</div>
 </div>
 {% endblock %}

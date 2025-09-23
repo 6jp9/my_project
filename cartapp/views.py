@@ -56,8 +56,8 @@ def increment_item(request, cart_id):
             cart_item.quantity = stock
         cart_item.update_price()
         cart_item.save()
-
-        return redirect('cart')
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+        # return redirect('cart')
     return redirect('login')
 
 
@@ -70,5 +70,6 @@ def decrement_item(request, cart_id):
             cart_item.save()
         else:
             cart_item.delete()
-        return redirect('cart')
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+        # return redirect('cart')
     return redirect('login')
