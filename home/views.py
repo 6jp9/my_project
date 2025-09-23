@@ -23,7 +23,7 @@ def add_product(request,username):
         form = ProductForms()
     return render(request,'home/addproductform.html',{'form':form})
 
-def product_dtls(request,product_id):
+def product_dtls(request,product_id,cart_id=None):
     product = Products.objects.get(product_id=product_id)
     in_cart=  False
     quantity=0
@@ -31,5 +31,19 @@ def product_dtls(request,product_id):
         customer = Customers.objects.get(username = request.user.username)
         in_cart = Cart.objects.filter(customer=customer,product=product)
         if in_cart.exists():
+            
             quantity = in_cart.first().quantity
-    return render(request,'home/product.html',{'product':product,'in_cart':in_cart,'quantity':quantity})
+            cart_id = in_cart.first().cart_id
+
+    return render(request,'home/product.html',{'product':product,'in_cart':in_cart,'quantity':quantity,'cart_id':cart_id})
+
+def buy_item(request,cart_id):
+    cart = Cart.objects.get(cart_id=cart_id)
+    buyer =  Customers.objects.get(customer_id = cart.customer.customer_id)
+    item = Products.objects.get(product_id = cart.product.product_id)
+    if buyer.address==None or buyer.phone==None:
+        return redirect('customer_dtls',username=buyer.username)
+    return render(request,'home/buyitem.html',{'item': item,"cart":cart ,'buyer':buyer})
+
+
+    

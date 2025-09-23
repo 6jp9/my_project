@@ -33,7 +33,7 @@ def add_to_cart(request, product_id):
                 cart_item.quantity=product.stock
             cart_item.update_price()
             cart_item.save()
-    return redirect("cart")
+    return redirect("product",product_id=product_id)
 
 
 def delete_from_cart(request, cart_id):
@@ -57,8 +57,7 @@ def increment_item(request, cart_id):
         cart_item.update_price()
         cart_item.save()
 
-        return redirect('cart')  # Redirect to cart page after increment
-
+        return redirect('cart')
     return redirect('login')
 
 

@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
-<div class="jumbotron">
+
 <div class="container mt-5">
     <div class="row align-items-center">
-        
+
         <!-- Product Image -->
-        <div class="col-md-5 text-center mb-3">
+        <div class="col-md-5 text-center mb-4">
             <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
         </div>
 
         <!-- Product Details -->
         <div class="col-md-7">
-            <h2 class="fw-bold">{{ product.name }}</h2>
-            <h4 class="text-success">$.{{ product.price }}</h4>
-            <h4 class="fw-bold">In-Stock:{{ product.stock }}</h4>
-            <p class="text-muted" id="product-description"><strong>Note:</strong>{{ product.description }}</p>
+            <h2 class="fw-bold mb-3">{{ product.name }}</h2>
 
+            <!-- Price -->
+            <h4 class="text-success fw-bold mb-2">$.{{ product.price }}</h4>
+
+            <!-- Stock -->
+            <p class="text-muted small mb-3">In stock: {{ product.stock }}</p>
+
+            <!-- Description -->
+            <div class="bg-light p-3 rounded mb-4" id="product-description">
+                <strong>Note:</strong> {{ product.description }}
+            </div>
 
             <hr>
 
             {% if request.user.is_authenticated %}
-                <!-- Add to Cart / Buy Buttons -->
-                {% if in_cart %}
-                <h6>In-Cart: {{ quantity }}</h6>
+       <!-- Add to Cart Form -->
+<form method="post" action="/cart/add/{{ product.product_id }}/" class="w-75" style="margin-bottom: 5px;">
+    {% csrf_token %}
+    <div class="input-group">
+        <input type="number" 
+               name="quantity" 
+               value="1" 
+               min="1" 
+               max="{{ product.stock }}" 
+               class="form-control" 
+               style="max-width: 100px;text-align: center;">
+        <button type="submit" class="btn btn-warning flex-fill">
+            <i class="bi bi-cart-plus"></i> Add to Cart
+        </button>
+    </div>
+</form>
 
-                
-                {% endif %}
-                <form method="post" action="/cart/add/{{ product.product_id }}/" class="d-inline">
-                 {% csrf_token %}
-                    <div class="input-group mb-3" style="max-width: 200px;">
-                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control">
-                    <button type="submit" class="btn btn-warning" >
-                <i class="bi bi-cart-plus"></i> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
-  <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
-  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-</svg> Add to Cart 
-                </button>
-                    </div>
-                </form>
-                <a class="btn btn-success" href="#">
-                    <i class="bi bi-bag-check"></i> Buy Now
-                </a>
+<!-- Show In-Cart Badge if product already in cart -->
+{% if in_cart %}
+    <a class="btn btn-primary w-75" href="\cart/" style="margin-bottom: 5px;">In Cart: {{ quantity }}</a>
+
+    <a class="btn btn-success w-75" href="\buyitem/{{ cart_id }}">
+    <i class="bi bi-bag-check"></i> Buy Now
+</a>
+{% endif %}
+
+<!-- Buy Now Button -->
+
+
+
+
             {% else %}
+                <!-- If not logged in -->
                 <p class="text-danger mt-3">Please login to place an order.</p>
                 <a class="btn btn-primary" href="{% url 'login' %}">
                     <i class="bi bi-box-arrow-in-right"></i> Login
@@ -51,5 +69,5 @@
         </div>
     </div>
 </div>
-</div>
+
 {% endblock %}

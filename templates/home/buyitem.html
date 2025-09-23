@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'user/base.html' %}
+{% block body_block %}
+<div class="container mt-5">
+    <h1>Conform Details</h1><br>
+    <div class="row align-items-center">
+
+        <!-- Product Image -->
+        <div class="col-md-5 text-center mb-4">
+            <img src="{{ item.image.url }}" class="img-fluid rounded shadow" alt="{{ item.name }}">
+        </div>
+
+        <!-- Product Details -->
+        <div class="col-md-7">
+            <h2 class="fw-bold mb-3">{{ item.name }}</h2>
+
+            <!-- Price -->
+            <h4 class="text-success fw-bold mb-2">$.{{ cart.price }}</h4>
+
+            <!-- Stock -->
+            <h5 class="text-muted mb-3">Quantity: {{ cart.quantity }}</h5>
+            <hr>
+
+            <!-- Customer Details -->
+            <div class="mt-4" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: max-content;">
+                <h2 class="fw-bold mb-3">Customer Details</h2>
+                <hr>
+                <h4><strong>Name:</strong> {{ buyer.first_name }} {{ buyer.last_name }}</h4>
+                <h4><strong>Phone:</strong> {{ buyer.phone }}</h4>
+                <h4 id="product-description"><strong>Address:</strong> {{ buyer.address }}</h4>
+                <br>
+                <a class="btn btn-info w-100" href="{% url 'customer_dtls' buyer.username %}"><i class="bi bi-bag-check"></i> Edit Details</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
