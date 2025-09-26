@@ -145,4 +145,4 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'jayaprakash1405401@gmail.com'
-EMAIL_HOST_PASSWORD = 'alef hvhd cuwr qxer'  # Use App Password, NOT your Gmail password
+EMAIL_HOST_PASSWORD = '#'  # Use App Password, NOT your Gmail password
