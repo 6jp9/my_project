@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'user/base.html' %}
+{% block body_block %}
+<div class="jumbotron">
+  <div class="container text-center mt-5">
+    <h1 class="text-success">Payment Successful!</h1>
+    <div id="nullDiv">
+    <div>
+      <p class="lead mt-3">Thank you for your purchase. Your order has been confirmed.</p>
+      <a href="{% url 'home' %}" class="btn btn-primary mt-3">Go to Home</a>
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

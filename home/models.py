@@ -18,11 +18,11 @@ class Products(models.Model):
         return self.name
 
 # class Orders(models.Model):
-#     order_id = models.AutoField(primary_key=True)
+#     order_id = models.AutoField(primary_key=True,default=1)
 #     customer = models.ForeignKey(Customers, on_delete=models.CASCADE, related_name='orders', blank=True, null=True)
 #     merchant = models.ForeignKey(Merchants, on_delete=models.CASCADE, related_name='orders', blank=True, null=True)
 #     product = models.ForeignKey(Products, on_delete=models.CASCADE, blank=True, null=True)
 #     quantity = models.IntegerField(blank=True, null=True)
 #     total_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-#     status = models.CharField(max_length=9, blank=True, null=True)
+#     status = models.CharField(max_length=9, blank=True, null=True,default='pending')
 #     created_at = models.DateTimeField(auto_now_add=True)

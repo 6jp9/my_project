@@ -105,7 +105,7 @@ def customer_form(request,username):
         if form.is_valid():
             form.save()
         return redirect('/profile')
-    return render(request,'user/signup.html',{'form':form})
+    return render(request,'user/add_dtls.html',{'form':form})
 
 def merchant_form(request,username):
     temp = Customers.objects.get(username=username)
