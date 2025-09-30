@@ -1,5 +1,11 @@
-from django.urls import path
+from django.urls import path,include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('api',views.ProductsCRUD_View)
+
+from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -8,4 +14,6 @@ urlpatterns = [
     path('product/<int:product_id>',views.product_dtls,name='product'),
     path('buyitem/<int:cart_id>',views.buy_item,name='buy_item'),
     path('terms_and_conditions/',views.TandC_view,name='terms&conditions'),
+    path('',include(router.urls)),
+    path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
 ]

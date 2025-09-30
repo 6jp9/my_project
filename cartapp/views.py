@@ -10,9 +10,10 @@ import requests
 
 def cart(request):
     if request.user.is_authenticated:
-        customer = get_object_or_404(Customers, username=request.user.username)
-        cart_items = Cart.objects.filter(customer_id = customer.customer_id).select_related('product')
-        return render(request,'cartapp/cart.html',{'cart_items': cart_items})
+        if not request.user.is_superuser:
+            customer = get_object_or_404(Customers, username=request.user.username)
+            cart_items = Cart.objects.filter(customer_id = customer.customer_id).select_related('product')
+            return render(request,'cartapp/cart.html',{'cart_items': cart_items})
     return render(request,'cartapp/cart.html')
 
 

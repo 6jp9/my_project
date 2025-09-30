@@ -6,7 +6,17 @@
     <div>
     <h1 class="mb-4">Cart</h1>
     </div>
-        {% if request.user.is_authenticated %}
+      {% if request.user.is_authenticated %}
+        {% if request.user.is_superuser %}
+        <div id="nullDiv">
+        <div class="text-center">
+          <h2 class="mb-3">Hello, {{ request.user.username }} 👑</h2>
+          <p class="text-muted">You are logged in as a superuser.</p><br>
+          <a class="btn btn-primary" href="/admin/">Go to Admin Dashboard</a>
+        </div>
+        </div>
+
+        {% else %}
         {% if cart_items %}
         <div class="row" style="gap: 10px;position: relative;">
         {% for i in cart_items %}
@@ -49,15 +59,14 @@
       <a class="btn btn-info" href="/">Continue Shopping</a>
       </div></div>
         {% endif %}
-        {% else %}
+        {% endif %}
+      {% else %}
         <div id="nullDiv">
           <div>
         <h3>Login to view</h3>
         <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
         </div></div>
        {% endif %}
-        
-  
+  </div>
 </div></div>
 {% endblock %}
-

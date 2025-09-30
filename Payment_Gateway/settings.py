@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'home',
     'cartapp',
     'payments',
+    'rest_framework',
+    'rest_framework.authtoken', 
 ]
 
 MIDDLEWARE = [
@@ -151,3 +153,11 @@ EMAIL_HOST_PASSWORD = config("APP_PASSWORD")  # Use App Password, NOT your Gmail
 #Stripe API keys
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
+
+#Authentications
+# REST_FRAMEWORK = {
+# 'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+# 'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAdminUser',),
+# }
+
+# from rest_framework.authentication import 

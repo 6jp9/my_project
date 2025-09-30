@@ -28,37 +28,42 @@
             <hr>
 
             {% if request.user.is_authenticated %}
-       <!-- Add to Cart Form -->
-<form method="post" action="/cart/add/{{ product.product_id }}/" class="w-75" style="margin-bottom: 5px;">
-    {% csrf_token %}
-    <div class="input-group">
-        <input type="number" 
-               name="quantity" 
-               value="1" 
-               min="1" 
-               max="{{ product.stock }}" 
-               class="form-control" 
-               style="max-width: 100px;text-align: center;">
-        <button type="submit" class="btn btn-warning flex-fill">
-            <i class="bi bi-cart-plus"></i> Add to Cart
-        </button>
-    </div>
-</form>
+                {% if request.user.is_superuser %}
+            <div class="text-center">
+            <h2 class="mb-3">Hello, {{ request.user.username }} 👑</h2>
+            <p class="text-muted">You are logged in as a superuser.</p>
+            </div>
 
-<!-- Show In-Cart Badge if product already in cart -->
-{% if in_cart %}
-    <a class="btn btn-primary w-75" href="\cart/" style="margin-bottom: 5px;">In Cart: {{ quantity }}</a>
+                {% else %}
+                <!-- Add to Cart Form -->
+                <form method="post" action="/cart/add/{{ product.product_id }}/" class="w-75" style="margin-bottom: 5px;">
+                {% csrf_token %}
+                <div class="input-group">
+                <input type="number" 
+                name="quantity" 
+                value="1" 
+                min="1" 
+                max="{{ product.stock }}" 
+                class="form-control" 
+                style="max-width: 100px;text-align: center;">
+                <button type="submit" class="btn btn-warning flex-fill">
+                <i class="bi bi-cart-plus"></i> Add to Cart
+                </button>
+                </div>
+                </form>
 
-    <a class="btn btn-success w-75" href="\buyitem/{{ cart_id }}">
-    <i class="bi bi-bag-check"></i> Buy Now
-</a>
-{% endif %}
+                <!-- Show In-Cart Badge if product already in cart -->
+                {% if in_cart %}
+                <a class="btn btn-primary w-75" href="\cart/" style="margin-bottom: 5px;">In Cart: {{ quantity }}</a>
+
+                <a class="btn btn-success w-75" href="\buyitem/{{ cart_id }}">
+                <i class="bi bi-bag-check"></i> Buy Now
+                </a>
+                {% endif %}
+                {% endif %}
+                
 
 <!-- Buy Now Button -->
-
-
-
-
             {% else %}
                 <!-- If not logged in -->
                 <p class="text-danger mt-3">Please login to place an order.</p>

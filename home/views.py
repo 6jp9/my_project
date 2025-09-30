@@ -4,6 +4,8 @@ from user.models import Merchants,Customers
 from .models import Products
 from cartapp.models import Cart
 import requests
+from rest_framework.viewsets import ModelViewSet
+from .serializers import ProductSerializer
 # Create your views here.
 def home(request):
     Product = Products.objects.all()
@@ -28,14 +30,14 @@ def product_dtls(request,product_id,cart_id=None):
     in_cart=  False
     quantity=0
     if request.user.is_authenticated:
-        customer = Customers.objects.get(username = request.user.username)
-        in_cart = Cart.objects.filter(customer=customer,product=product)
-        if in_cart.exists():
-            
-            quantity = in_cart.first().quantity
-            cart_id = in_cart.first().cart_id
-
-    return render(request,'home/product.html',{'product':product,'in_cart':in_cart,'quantity':quantity,'cart_id':cart_id})
+        if not request.user.is_superuser:
+            customer = Customers.objects.get(username = request.user.username)
+            in_cart = Cart.objects.filter(customer=customer,product=product)
+            if in_cart.exists():
+                quantity = in_cart.first().quantity
+                cart_id = in_cart.first().cart_id
+        return render(request,'home/product.html',{'product':product,'in_cart':in_cart,'quantity':quantity,'cart_id':cart_id})
+    return render(request,'home/product.html')
 
 def buy_item(request,cart_id):
     cart = Cart.objects.get(cart_id=cart_id)
@@ -49,3 +51,8 @@ def buy_item(request,cart_id):
     
 def TandC_view(request):
     return render(request,'home/tc.html')
+
+
+class ProductsCRUD_View(ModelViewSet):
+    queryset = Products.objects.all()
+    serializer_class = ProductSerializer
