@@ -3,12 +3,13 @@ from django.shortcuts import render,get_object_or_404,redirect
 from Payment_Gateway import settings
 from cartapp import models
 from home.models import Products
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 DOMAIN = "http://127.0.0.1:8000/"
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
-
+@login_required
 def create_checkout_session(request,cart_id):
     cart = get_object_or_404(models.Cart,cart_id=cart_id)
     checkout_session = stripe.checkout.Session.create(

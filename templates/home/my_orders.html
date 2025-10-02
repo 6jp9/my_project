@@ -14,32 +14,27 @@
                 </select>
                 <input type="submit" value="Filter" class="btn btn-warning">
             </div>
-
+            
+                    <div id="nullDiv">
+                    <div style="text-align: center;">
             {% if user.is_authenticated %}
                 {% if user.is_superuser %}
                     
-                    <div id="nullDiv">
-                    <div style="text-align: center;">
                         <h3>Welcome Admin – Manage Orders</h3>
                         <br>
                         <a class="btn btn-primary" href="/admin/">Go to Admin Dashboard</a>
-                    </div></div>
                 {% else %}
-                    <div id="nullDiv">
-                        <div style="text-align: center;">
                             <h3>No Orders placed</h3>
                             <br>
                             <a class="btn btn-info" href="/">Continue Shopping</a>
-                        </div>
-                    </div>
+                    
                 {% endif %}
             {% else %}
-                <div style="text-align: center;">
                     <h3>You must log in to view orders</h3>
                     <br>
                     <a class="btn btn-success" href="/login/">Login</a>
-                </div>
             {% endif %}
+            </div></div>
         </form>
     </div>
 </div>

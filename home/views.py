@@ -6,12 +6,20 @@ from cartapp.models import Cart
 import requests
 from rest_framework.viewsets import ModelViewSet
 from .serializers import ProductSerializer
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def home(request):
-    Product = Products.objects.all()
-    return render(request,'home/home.html',{'product':Product})
+    query = request.GET.get('q', '')  # get search term, default empty
+    if query:
+        products = Products.objects.filter(name__icontains=query)  # case-insensitive search
+    else:
+        products = Products.objects.all()
+    return render(request, 'home/home.html', {'products': products, 'query': query})
+
 def orders(request):
     return render(request,'home/my_orders.html')
+
+@login_required
 def add_product(request,username):
     if request.method=='POST':
         merchant = Merchants.objects.get(username=username)
@@ -26,7 +34,7 @@ def add_product(request,username):
     return render(request,'home/addproductform.html',{'form':form})
 
 def product_dtls(request,product_id,cart_id=None):
-    product = Products.objects.get(product_id=product_id)
+    product = get_object_or_404(Products, product_id=product_id)
     in_cart=  False
     quantity=0
     if request.user.is_authenticated:
@@ -37,8 +45,9 @@ def product_dtls(request,product_id,cart_id=None):
                 quantity = in_cart.first().quantity
                 cart_id = in_cart.first().cart_id
         return render(request,'home/product.html',{'product':product,'in_cart':in_cart,'quantity':quantity,'cart_id':cart_id})
-    return render(request,'home/product.html')
+    return render(request,'home/product.html',{'product':product})
 
+@login_required
 def buy_item(request,cart_id):
     cart = Cart.objects.get(cart_id=cart_id)
     buyer =  Customers.objects.get(customer_id = cart.customer.customer_id)

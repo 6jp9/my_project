@@ -3,35 +3,31 @@
 {% block body_block %}
 <div class="jumbotron">
   <div class="container" >
+
+{% if query %}
+<div style="display: flex; align-items: center; gap: 10px; margin: 20px 0;">
+    <a href="/" style="text-decoration: none;">
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       width="28" height="28"
+       fill="currentColor" 
+       viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+  </svg>
+</a>
+
+    <h5 style="margin: 0;">Search results for "<span style="color: #007bff;">{{ query }}</span>"</h5>
+</div>
+
+{% else %}
     <h2>Hi, {{ request.user.username }}</h2>
     <h2>Welcome to Shopkart 🛒</h2>
-    <p>
-      <h3>📘 Shopping Guidelines</h3>
-      <h5>
-        Please read the following guidelines carefully before placing your order.  
-        These steps ensure a smooth, secure, and hassle-free shopping experience.
-      </h5>
+{% endif %}
 
-      <h6>📌 How Shopkart Works:</h6>
-      <ul>
-        <li>Browse through products from verified merchants.</li>
-        <li>Add your favorite items to the cart.</li>
-        <li>Place an order and complete payment securely via Razorpay.</li>
-        <li>Merchants will confirm and ship your order directly to your address.</li>
-        <li>Track your orders easily from your account dashboard.</li>
-        <li>In case of any issues, our support team is here to help you.</li>
-      </ul>
+<hr>
 
-      <h6>⚠️ Note:</h6>
-      <ul>
-        <li>Ensure your delivery address and contact details are correct before checkout.</li>
-        <li>Keep an eye on your order status for updates on shipping and delivery.</li>
-        <li>All payments are processed securely; Shopkart never shares your details.</li>
-      </ul>
-    </p>
  <div class="container">
   <div class="row" style="gap: 10px;">
-    {% for i in product %}
+    {% for i in products %}
       <div class="card" style="width: 260px;height: 380;">
         <img src="{{i.image.url}}" alt="cart" height="180" width="260">
         <div class="card-body">
@@ -44,6 +40,10 @@
         </div>
       </div>
       </div>
+       {% empty %}
+       <div id="nullDiv">
+    <p>No products found.</p>
+    </div>
     {% endfor %}
   </div>
 </div>

@@ -6,6 +6,7 @@ from .models import Customers,Merchants
 from django.utils.timezone import now
 from home.models import Products
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def profile(request):

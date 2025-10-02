@@ -5,7 +5,6 @@ from user.models import Customers
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
 import requests
-
 # Create your views here.
 
 def cart(request):
@@ -16,7 +15,7 @@ def cart(request):
             return render(request,'cartapp/cart.html',{'cart_items': cart_items})
     return render(request,'cartapp/cart.html')
 
-
+@login_required
 def add_to_cart(request, product_id):
     if request.method == "POST":
         customer = get_object_or_404(Customers, username=request.user.username)
@@ -36,7 +35,7 @@ def add_to_cart(request, product_id):
             cart_item.save()
     return redirect("product",product_id=product_id)
 
-
+@login_required
 def delete_from_cart(request, cart_id):
     if request.user.is_authenticated:
         cart_item = get_object_or_404(Cart, cart_id=cart_id, customer__username=request.user.username)
@@ -44,7 +43,7 @@ def delete_from_cart(request, cart_id):
     return redirect("cart")
 
 
-
+@login_required
 def increment_item(request, cart_id):
     if request.user.is_authenticated:
         cart_item = get_object_or_404(Cart, cart_id=cart_id)
@@ -61,7 +60,7 @@ def increment_item(request, cart_id):
         # return redirect('cart')
     return redirect('login')
 
-
+@login_required
 def decrement_item(request, cart_id):
     if request.user.is_authenticated:
         cart_item = get_object_or_404(Cart, cart_id=cart_id)
