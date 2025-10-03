@@ -16,4 +16,5 @@ urlpatterns = [
     path('terms_and_conditions/',views.TandC_view,name='terms&conditions'),
     path('',include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
+    path('order_dtls/<int:order_id>',views.order_dtils,name='order_dtls'),
 ]

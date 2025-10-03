@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+{% extends 'user/base.html' %}
+{% block body_block %}
+
+<div class="container mt-5">
+    <div class="row align-items-start">
+
+        <!-- Product Image -->
+        <div class="col-md-5 text-center mb-4">
+            <img src="{{ order.product.image.url }}" class="img-fluid rounded shadow" alt="{{ order.product.name }}">
+        </div>
+
+        <!-- Order & Product Details -->
+        <div class="col-md-7">
+            <h2 class="fw-bold mb-3">{{ order.product.name }}</h2>
+
+            <!-- Price -->
+            <h4 class="text-success fw-bold mb-2">₹ {{ order.price }}</h4>
+
+            <!-- Status -->
+            <p class="mb-3">
+                Status:
+                {% if order.status == "Delivered" %}
+                    <span class="badge bg-success">{{ order.status }}</span>
+                {% elif order.status == "Pending" %}
+                    <span class="badge bg-warning text-dark">{{ order.status }}</span>
+                {% elif order.status == "Canceled" %}
+                    <span class="badge bg-danger">{{ order.status }}</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ order.status }}</span>
+                {% endif %}
+            </p>
+
+            <!-- Order Info -->
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <strong>Order ID:</strong> #{{ order.order_id }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Quantity:</strong> {{ order.quantity }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Total Price:</strong> ₹ {{ order.price }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Ordered On:</strong> {{ order.created_at }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Reciver:</strong> {{ name }}
+                </li>
+                <li class="list-group-item">
+                    <strong>Delivery Address:</strong> {{ address }}
+                </li>
+            </ul>
+
+            <hr>
+
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_superuser %}
+                    <div class="text-center">
+                        <h2 class="mb-3">Hello, {{ request.user.username }} 👑</h2>
+                        <p class="text-muted">You are logged in as a superuser.</p>
+                        <a href="/admin/" class="btn btn-primary">Go to Admin Dashboard</a>
+                    </div>
+                {% else %}
+                    <!-- Order Actions -->
+                    <div class="d-flex gap-2">
+                        {% if order.status == "Pending" %}
+                            <a href="/order/cancel/{{ order.id }}/" class="btn btn-danger flex-fill">
+                                <i class="bi bi-x-circle"></i> Cancel Order
+                            </a>
+                        {% endif %}
+                        <a href="/orders/" class="btn btn-outline-secondary flex-fill">
+                            <i class="bi bi-arrow-left"></i> Back to Orders
+                        </a>
+                    </div>
+                {% endif %}
+            {% else %}
+                <p class="text-danger mt-3">Please login to view your orders.</p>
+                <a class="btn btn-primary" href="{% url 'login' %}">
+                    <i class="bi bi-box-arrow-in-right"></i> Login
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

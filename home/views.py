@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ProductForms
 from user.models import Merchants,Customers
-from .models import Products
+from .models import Products,Orders
 from cartapp.models import Cart
 import requests
 from rest_framework.viewsets import ModelViewSet
@@ -17,7 +17,19 @@ def home(request):
     return render(request, 'home/home.html', {'products': products, 'query': query})
 
 def orders(request):
+    if request.user.is_authenticated:
+        if not request.user.is_superuser:
+            customer = get_object_or_404(Customers, username=request.user.username)
+            orders = Orders.objects.filter(customer_id = customer.customer_id).select_related('product')
+            return render(request,'home/my_orders.html',{'orders': orders})
     return render(request,'home/my_orders.html')
+
+def order_dtils(request,order_id):
+    order = Orders.objects.get(order_id = order_id)
+    customer = order.customer
+    name = customer.first_name +'-'+ customer.last_name
+    address = customer.address
+    return render(request,'home/order.html',{'order':order,'name':name,'address':address})
 
 @login_required
 def add_product(request,username):
