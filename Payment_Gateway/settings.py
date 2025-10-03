@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-*uuf4vsif@oyi^72pl*y3zt3$qgo8p#j%&&l#)iejy0q&rrvnb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -126,6 +126,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000',
+    'https://phagolytic-intramolecular-evelin.ngrok-free.dev',
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -153,6 +158,7 @@ EMAIL_HOST_PASSWORD = config("APP_PASSWORD")  # Use App Password, NOT your Gmail
 #Stripe API keys
 STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
 STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
+STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET")
 
 #Authentications
 # REST_FRAMEWORK = {
