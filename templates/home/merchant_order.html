@@ -1,0 +1,53 @@
+{% extends 'user/base.html' %}
+{% block body_block %}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Orders Dashboard</h2>
+    <h4 class="text-success mb-4">Total Revenue: ₹ {{ total_revenue }}</h4>
+
+    {% if orders %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Ordered On</th>
+                        <th>Buyer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ order.product.name }}</td>
+                            <td>{{ order.quantity }}</td>
+                            <td>₹ {{ order.price }}</td>
+                            <td>
+                                {% if order.status == "Ordered" %}
+                                    <span class="badge bg-success">{{ order.status }}</span>
+                                {% elif order.status == "Canceled" %}
+                                    <span class="badge bg-danger">{{ order.status }}</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">{{ order.status }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ order.created_at|date:"d M Y H:i" }}</td>
+                            <td>{{ order.customer.username }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div id="nullDiv"></div>
+        </div>
+    {% else %}
+    <div id="nullDiv">
+        <p class="text-muted">No orders yet.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

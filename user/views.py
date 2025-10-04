@@ -23,6 +23,10 @@ def merchant_profile(request,username):
     products = Products.objects.filter(merchant_id = merchant.merchant_id)
     return render(request,'user/merchant_profile.html',{'merchant':merchant,'products':products})
 
+def merchant_product_dtls(request,product_id):
+    product = Products.objects.get(product_id=product_id)
+    return render(request,'user/merchant_product.html',{'product':product})
+
 #############################################################
 
 def verify_otp(request):
@@ -57,7 +61,7 @@ def verify_otp(request):
             del request.session['signup_data']
             del request.session['otp']
 
-            return redirect('/accountslogin')
+            return redirect('/accounts/login')
         else:
             return render(request, 'user/otpverify.html', {'error': 'Invalid OTP'})
     

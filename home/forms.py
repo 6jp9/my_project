@@ -4,6 +4,9 @@ class ProductForms(forms.ModelForm):
     class Meta:
         model = Products
         fields = ['name', 'description', 'price', 'stock','image']
+        widgets = {
+            'image': forms.FileInput(),  # removes clear checkbox
+        }
     def __init__(self, *args, **kwargs):
        super().__init__(*args, **kwargs)
        

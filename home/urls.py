@@ -17,4 +17,6 @@ urlpatterns = [
     path('',include(router.urls)),
     path('api-token-auth/', obtain_auth_token, name='api_token_auth'),
     path('order_dtls/<int:order_id>',views.order_dtils,name='order_dtls'),
+    path('editproduct/<int:product_id>/',views.alter_product_dtls_form),
+    path('order_dashboard/<int:merchant_id>/',views.merchant_orders)
 ]

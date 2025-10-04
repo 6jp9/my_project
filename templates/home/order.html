@@ -64,15 +64,36 @@
                     </div>
                 {% else %}
                     <!-- Order Actions -->
-                    <div class="d-flex gap-2">
-                        {% if order.status == "Pending" %}
-                            <a href="/order/cancel/{{ order.id }}/" class="btn btn-danger flex-fill">
-                                <i class="bi bi-x-circle"></i> Cancel Order
-                            </a>
-                        {% endif %}
-                        <a href="/orders/" class="btn btn-outline-secondary flex-fill">
+                    <div class="d-flex gap-2" style="gap: 20px;">
+                        <a href="/orders/" class="btn btn-outline-primary flex-fill">
                             <i class="bi bi-arrow-left"></i> Back to Orders
                         </a>
+                         {% if order.status == "pending" %}
+                            
+
+                            <form id="deleteForm" method="POST" action="#">
+  {% csrf_token %}
+  <button type="button" class="btn btn-outline-danger flex-fill" onclick="confirmDelete()"><i class="bi bi-x-circle"></i> Cancel Order </button>
+</form>
+
+<script>
+function confirmDelete() {
+  Swal.fire({
+  title: "Cancel Order?",
+  text: "Are you sure you want to cancel this order? This action cannot be undone.",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonText: "Yes, cancel it!",
+  cancelButtonText: "No, keep it"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById('deleteForm').submit();
+    }
+  });
+}
+</script>
+
+                        {% endif %}
                     </div>
                 {% endif %}
             {% else %}

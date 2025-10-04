@@ -7,6 +7,7 @@ import requests
 from rest_framework.viewsets import ModelViewSet
 from .serializers import ProductSerializer
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 # Create your views here.
 def home(request):
     query = request.GET.get('q', '')  # get search term, default empty
@@ -77,3 +78,27 @@ def TandC_view(request):
 class ProductsCRUD_View(ModelViewSet):
     queryset = Products.objects.all()
     serializer_class = ProductSerializer
+
+
+def alter_product_dtls_form(request,product_id):
+    temp = Products.objects.get(product_id=product_id)
+    if request.user.username == temp.merchant.username:
+        form = ProductForms(instance=temp)
+        if request.method == 'POST':
+            form = ProductForms(request.POST,request.FILES,instance=temp)
+            if form.is_valid():
+                form.save()
+            return redirect(f'/merchant_profile/{temp.merchant.username}/')
+        return render(request,'home/addproductform.html',{'form':form})
+    return HttpResponse('<h2>Access Denied</h2>')
+
+@login_required
+def merchant_orders(request,merchant_id):
+    merchant = Merchants.objects.get(merchant_id=merchant_id)
+    orders = Orders.objects.filter(merchant=merchant).order_by('-created_at')
+    total_revenue = 0
+    for order in orders:
+        if order.status=='Ordered':
+            total_revenue += order.price
+    return render(request,'home/merchant_order.html',{'orders':orders,'total_revenue':total_revenue})
+
