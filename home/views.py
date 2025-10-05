@@ -21,9 +21,19 @@ def orders(request):
     if request.user.is_authenticated:
         if not request.user.is_superuser:
             customer = get_object_or_404(Customers, username=request.user.username)
-            orders = Orders.objects.filter(customer_id = customer.customer_id).select_related('product')
-            return render(request,'home/my_orders.html',{'orders': orders})
-    return render(request,'home/my_orders.html')
+            level = request.GET.get('level', 'All')
+            orders = Orders.objects.filter(customer_id=customer.customer_id).select_related('product')
+            if level == "Ordered":
+                orders = orders.filter(status="Ordered")
+            elif level == "Canceled":
+                orders = orders.filter(status="Canceled")
+            context = {
+                'orders': orders,
+                'selected_level': level
+            }
+            return render(request, 'home/my_orders.html', context)
+    return render(request, 'home/my_orders.html', {'orders': [], 'selected_level': 'All'})
+
 
 def order_dtils(request,order_id):
     order = Orders.objects.get(order_id = order_id)

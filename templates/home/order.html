@@ -20,10 +20,8 @@
             <!-- Status -->
             <p class="mb-3">
                 Status:
-                {% if order.status == "Delivered" %}
+                {% if order.status == "Ordered" %}
                     <span class="badge bg-success">{{ order.status }}</span>
-                {% elif order.status == "Pending" %}
-                    <span class="badge bg-warning text-dark">{{ order.status }}</span>
                 {% elif order.status == "Canceled" %}
                     <span class="badge bg-danger">{{ order.status }}</span>
                 {% else %}

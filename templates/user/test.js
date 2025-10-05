@@ -1,0 +1,195 @@
+#btn_buttom {
+    position: absolute ; 
+    bottom: 0px;
+}
+
+#nullDiv {
+    height: 50vh; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
+}
+
+
+h1 {
+    background-color: rgb(204, 204, 202);
+    position: relative;
+    border-bottom: 1px solid;
+    width: 40%;
+    border-radius: 50px;
+    text-align:center;
+    animation: slideIn 0.5s ease-out forwards;
+}
+
+.helptext {
+    display: block;
+    color: gray;
+    font-size: 0.9em;
+    margin-top: 4px;
+}
+
+#product-description {
+    white-space: normal; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 600px;
+}
+
+
+@keyframes slideIn {
+  from {
+    left: -10%;
+    opacity: 0;
+  }
+  to {
+    left: -5%;
+    opacity: 1;
+  }
+}
+
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+  <title>Shop-Kart</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="background-color: white;">
+  <div class="container">
+      
+    <a class="navbar-brand" href="{% url 'home' %}" style="position: relative; right: 50px;"><img src="/static/media/cart_logo.png" alt="logo" style="height: 5vh;">Shop-Kart</a>
+    <ul class="navbar-nav mr-auto" style="width: 300px;display: flex;justify-content: space-evenly;">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/orders">Orders</a>
+      </li>
+    </ul>
+    
+<div style="width: 40%;">
+    <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'home' %}">
+      <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search" style="width: 80%;">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
+
+<ul class="navbar-nav ml-auto">
+      {% if request.user.is_authenticated %}
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+          <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+        </svg>
+        </a>
+      <div class="dropdown-menu">
+          <a class="dropdown-item" href="{% url 'profile' %}">Profile</a>
+        {% if request.user.is_superuser %}
+          <div style="text-align: center;">
+            <strike>Merchant Profile</strike>
+          </div>
+        {% else %}
+            {% if is_merchant %}
+          <a class="dropdown-item" href="\merchant_profile/{{ request.user.username }}">Merchant Profile</a>
+          {% else %}
+          <a class="dropdown-item" href="\merchant_signup/{{ request.user.username }}">Register as Merchant</a>
+          {% endif %}
+          {% endif %}
+          
+        <div class="dropdown-divider" style='align-items: center;'></div>
+        <form method="post" action="{% url 'logout' %}" class="dropdown-item">
+            {% csrf_token %}
+            <button type="submit" style="border: none; background: none; cursor: pointer; color: rgb(254, 81, 81);">
+              Logout
+            </button>
+        </form>  
+        </div>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'signup' %}">Signup</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      {% endif %}
+    </ul> 
+
+  </div>
+</nav>
+
+
+
+
+  {% block body_block %}
+  {% endblock %}
+
+
+
+
+<footer class="bg-dark text-white mt-5 ">
+  <div class="container py-4">
+    <div class="row">
+      
+      <!-- About -->
+      <div class="col-md-6">
+        <h5>About Shopkart</h5>
+        <p>
+          Your trusted marketplace for quality products from verified merchants.  
+          Secure payments, fast delivery, and the best deals in one place.
+        </p>
+      </div>
+      
+      <!-- Quick Links -->
+     <div class="col-md-3">
+  <h5>Quick Links</h5>
+  <ul class="list-unstyled">
+    <li><a href="{% url 'home' %}" class="text-white">Home</a></li>
+    <li><a href="{% url 'cart' %}" class="text-white">Cart</a></li>
+    <li><a href="{% url 'orders' %}" class="text-white">My Orders</a></li>
+  </ul>
+</div>
+
+      
+      <!-- Contact -->
+      <div class="col-md-3">
+        <h5>Contact</h5>
+        <ul class="list-unstyled">
+          <li>Email: support@shopkart.com</li>
+          <li>Phone: +91 98765 43210</li>
+          <li><a href="{% url 'terms&conditions' %}" target="_blank">Terms & Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="bg-light">
+    <div class="text-center">
+      <small>&copy; 2025 Shopkart. All Rights Reserved.</small>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+
+</html>

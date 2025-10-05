@@ -36,6 +36,8 @@
 
                 {% else %}
                 <!-- Add to Cart Form -->
+                 <div >
+                    
                 <form method="post" action="/cart/add/{{ product.product_id }}/" class="w-75" style="margin-bottom: 5px;">
                 {% csrf_token %}
                 <div class="input-group">
@@ -58,7 +60,7 @@
 
                 <a class="btn btn-success w-75" href="\buyitem/{{ cart_id }}">
                 <i class="bi bi-bag-check"></i> Buy Now
-                </a>
+                </a></div>
                 {% endif %}
                 {% endif %}
                 
