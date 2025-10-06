@@ -1,18 +1,85 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
+
+<style>
+/* Responsive form card container */
+.form-card {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 12px;
+  background: #fff;
+}
+
+#id_description{
+  width: 75%;
+}
+#id_image{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+form>p>label{
+  display: block;
+}
+
+/* Adjust spacing and layout for smaller screens */
+@media (max-width: 768px) {
+  .form-card {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  #DivCon {
+    height: auto;
+    min-height: 70vh;
+    padding: 1rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    width: 90%;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-card {
+    max-width: 100%;
+  }
+
+  h1 {
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+  }
+}
+</style>
+
 <div class="jumbotron py-4">
   <div class="container">
     <h1 class="mb-4 text-center">Product Details</h1>
-    <div id="nullDiv" class="d-flex justify-content-center" style="height: 80vh;">
-      <div class="card shadow-sm p-4 w-100">
-        <form method="POST" enctype="multipart/form-data">
-            {{form.as_p}}
-            {% csrf_token %}
-            <input type="submit" class="btn btn-success btn-lg" value="submit">
+
+    <div id="DivCon" class="d-flex justify-content-center align-items-center">
+      <div class="card shadow-sm p-4 form-card">
+        <form method="POST" enctype="multipart/form-data" class="w-100">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="text-center mt-3">
+            <input type="submit" class="btn btn-success px-4 py-2" value="Submit">
+          </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+
 {% endblock %}

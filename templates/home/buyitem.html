@@ -1,70 +1,283 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
-<div class="container mt-5">
-    <h1>Conform Details</h1><br>
-    <div class="row align-items-center" style="display: flex; justify-content: center;align-items: center; width: 1000px;">
-        
+<style>
+    
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Tablets & below */
+@media (max-width: 992px) {
+  .product-image {
+    height: 180px;
+  }
+  #mobile-button{
+    width: fit-content;
+  }
+    #quantityCon{
+    width: 100%;
+  }
+   #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  #mobile-button>a{
+    width: 30%;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 220px;
+  }
+  .product-image {
+    height: 160px;
+  }
+     #quantityCon{
+    width: 100%;
+  }
+   #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  #mobile-button>a{
+    width: 30%;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .bi-person-circle,
+  .cart-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .product-image {
+    height: 140px;
+  }
+
+  .card .btn {
+    font-size: 0.9em;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+    #mobile-button{
+    width: fit-content;
+  }
+
+  h1 {
+    width: 85%;
+    font-size: 1.15rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  @keyframes slideIn {
+    from {
+      left: 0;
+      opacity: 0;
+    }
+    to {
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+  footer .col-md-6,
+  footer .col-md-3 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  footer ul {
+    padding-left: 0;
+  }
+
+  footer h5 {
+    font-size: 1rem;
+  }
+  #quantityCon{
+    width: 100%;
+  }
+   #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  #mobile-button>a{
+    width: 30%;
+  }
+
+}
+
+/* Extra Small Mobile */
+@media (max-width: 400px) {
+  h1 {
+    width: 90%;
+    font-size: 1rem;
+  }
+
+  .brand-logo {
+    height: 28px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+    #mobile-button{
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}
+
+/* Confirm Page Responsive Fix */
+#quantityCon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.card {
+  border-radius: 12px;
+  border: 1px solid #cfcfcf;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 992px) {
+  .card img {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    text-align: center;
+  }
+  #quantityCon {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.1rem;
+  }
+  .btn {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+}
+
+</style>
+<div class="jumbotron py-4">
+  <div class="container">
+    <h1 class="mb-4 text-center">Confirm Details</h1>
+
+    <!-- Product Section -->
+    <div class="card shadow-sm p-4 mb-4">
+      <div class="row gy-4 align-items-center justify-content-center">
+
         <!-- Product Image -->
-         <div style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: 1000px;height: fit-content; display: flex; justify-content: center; align-items: center;">
-        <div class="col-md-5 text-center mb-4">
-            <img src="{{ item.image.url }}" class="img-fluid rounded shadow" alt="{{ item.name }}">
+        <div class="col-lg-5 col-md-6 col-12 text-center">
+          <img src="{{ item.image.url }}" class="img-fluid rounded shadow-sm" alt="{{ item.name }}" style="max-height: 320px; object-fit: contain;">
         </div>
 
         <!-- Product Details -->
-        <div class="col-md-7" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: max-content;">
-            <h2 class="fw-bold mb-3">{{ item.name }}</h2>
+        <div class="col-lg-7 col-md-6 col-12 text-center text-md-start">
+          <h2 class="fw-bold mb-2">{{ item.name }}</h2>
+          <h4 class="text-success fw-semibold mb-3">₹ {{ cart.price }}</h4>
+          <hr>
+          <div class="d-flex justify-content-center align-items-center">
+                  <h6 class="border rounded px-3 py-2" id="quantityCon">
+                    Quantity: <br><br>
+                    <div id="mobile-button">
+                    <a href="\decrement/{{ i.cart_id }}" class="btn btn-outline-primary btn-sm" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+  <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1z"/>
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg></a>
+                    {{ cart.quantity }}
+                    <a href="\increment/{{ i.cart_id }}" class="btn btn-outline-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+  <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+  <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg></a></div>
+                  </h6>
+                </div>
+        </div>
 
-            <!-- Price -->
-            <h4 class="text-success fw-bold mb-2">₹.{{ cart.price }}</h4>
-            <hr>
-            <!-- Stock -->
-             <div>
-          <h5 style="padding: 10px;">Quantity:
-            <a href="\decrement/{{ cart.cart_id }}" class="btn btn-outline-primary btn-sm">-</a>
-            {{ cart.quantity }}
-            <a href="\increment/{{ cart.cart_id }}" class="btn btn-outline-primary btn-sm">+</a>
-          </h5>
-          </div>
-            
-            </div>
-            </div>
-            <!-- Customer Details -->
-            <div class="mt-4" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: 1000px;height: fit-content;">
-                <h2 class="fw-bold mb-3">Customer Details</h2>
-                <hr>
-                <h4><strong>Name:</strong> {{ buyer.first_name }} {{ buyer.last_name }}</h4>
-                <h4><strong>Phone:</strong> {{ buyer.phone }}</h4>
-                <h4 id="product-description"><strong>Address:</strong> {{ buyer.address }}</h4>
-                <br>
-                <a class="btn btn-info w-100" href="{% url 'customer_dtls' buyer.username %}"><i class="bi bi-bag-check"></i> Edit Details</a>
-            </div>
-    <!-- Terms and Conditions Section -->
-<div class="mt-5" style="border: 1px solid rgb(140, 138, 138); border-radius: 10px; padding: 25px; width: 1000px;">
-    <h2 class="fw-bold mb-3" style="text-align: center;">Terms and Conditions</h2>
-    <hr>
-    <p>By placing an order on <strong>Shop-Kart</strong>, you agree to the following terms and conditions:</p>
-    <ul>
-        <li>All orders are subject to product availability and confirmation of payment.</li>
-        <li>Prices and availability are subject to change without notice.</li>
-        <li>Delivery times are estimates and may vary due to courier or unforeseen circumstances.</li>
-        <li>Returns and refunds are subject to our Return Policy.</li>
-        <li>You are responsible for providing accurate shipping and contact details.</li>
-        <li>Shop-Kart reserves the right to update terms at any time.</li>
-    </ul>
-<!-- Accept Checkbox -->
-<form action="{% url 'checkout_session' cart.cart_id %}" method="post">
-    {% csrf_token %}
-    <div class="form-check mt-3">
-        <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
-        <label class="form-check-label" for="acceptTerms">
-            I have read and accept the 
-            <a href="{% url 'terms&conditions' %}" target="_blank">Terms and Conditions</a>.
-        </label>
+      </div>
     </div>
-    <button type="submit" class="btn btn-success w-100 mt-3">Continue Payment</button>
-</form>
-</div>
-</div>
+
+    <!-- Customer Details -->
+    <div class="card shadow-sm p-4 mb-4">
+      <h2 class="fw-bold mb-3">Customer Details</h2>
+      <hr>
+      <h5><strong>Name:</strong> {{ buyer.first_name }} {{ buyer.last_name }}</h5>
+      <h5><strong>Phone:</strong> {{ buyer.phone }}</h5>
+      <h5><strong>Address:</strong> {{ buyer.address }}</h5>
+      <a href="{% url 'customer_dtls' buyer.username %}" class="btn btn-info w-100 mt-3">
+        <i class="bi bi-pencil-square"></i> Edit Details
+      </a>
+    </div>
+
+    <!-- Terms & Conditions -->
+    <div class="card shadow-sm p-4 mb-4">
+      <h2 class="fw-bold mb-3 text-center">Terms and Conditions</h2>
+      <hr>
+      <ul class="ps-3">
+        <li>All orders are subject to product availability and payment confirmation.</li>
+        <li>Prices and availability may change without prior notice.</li>
+        <li>Delivery times may vary due to courier or unforeseen delays.</li>
+        <li>Returns and refunds are subject to our Return Policy.</li>
+        <li>Please provide accurate shipping and contact information.</li>
+      </ul>
+
+      <form action="{% url 'checkout_session' cart.cart_id %}" method="post">
+        {% csrf_token %}
+        <div class="form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="acceptTerms" name="acceptTerms" required>
+          <label class="form-check-label" for="acceptTerms">
+            I have read and accept the
+            <a href="{% url 'terms&conditions' %}" target="_blank">Terms and Conditions</a>.
+          </label>
+        </div>
+        <button type="submit" class="btn btn-success w-100 mt-3">Continue to Payment</button>
+      </form>
+    </div>
+
+  </div>
 </div>
 {% endblock %}

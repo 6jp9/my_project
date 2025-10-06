@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
-
+<div class="jumbotron">
 <div class="container mt-5">
-    <div class="row align-items-center">
-
+    
+    <div class="row align-items-center" >
+        
         <!-- Product Image -->
         <div class="col-md-5 text-center mb-4">
             <img src="{{ product.image.url }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
@@ -47,7 +48,7 @@
                 min="1" 
                 max="{{ product.stock }}" 
                 class="form-control" 
-                style="max-width: 100px;text-align: center;">
+                style="max-width: 100px;text-align: center;" required>
                 <button type="submit" class="btn btn-warning flex-fill">
                 <i class="bi bi-cart-plus"></i> Add to Cart
                 </button>
@@ -60,8 +61,9 @@
 
                 <a class="btn btn-success w-75" href="\buyitem/{{ cart_id }}">
                 <i class="bi bi-bag-check"></i> Buy Now
-                </a></div>
+                </a>
                 {% endif %}
+                </div>
                 {% endif %}
                 
 
@@ -73,8 +75,8 @@
                     <i class="bi bi-box-arrow-in-right"></i> Login
                 </a>
             {% endif %}
+            
         </div>
     </div>
-</div>
-
+</div></div>
 {% endblock %}
