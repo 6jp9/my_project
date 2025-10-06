@@ -1,6 +1,143 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
+
+<style>
+
+      
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Tablets & below */
+@media (max-width: 992px) {
+  .product-image {
+    height: 180px;
+  }
+  #mobile-button{
+    width: fit-content;
+  }
+    #quantityCon{
+    width: 100%;
+  }
+   #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  #mobile-button>a{
+    width: 30%;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 220px;
+  }
+  .product-image {
+    height: 160px;
+  }
+     #quantityCon{
+    width: 100%;
+  }
+   #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  #mobile-button>a{
+    width: 30%;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+  .bi-person-circle,
+  .cart-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .product-image {
+    height: 140px;
+  }
+
+  .card .btn {
+    font-size: 0.9em;
+  }
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+    #mobile-button{
+    width: fit-content;
+  }
+
+  h1 {
+    width: 85%;
+    font-size: 1.15rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  @keyframes slideIn {
+    from {
+      left: 0;
+      opacity: 0;
+    }
+    to {
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+  footer .col-md-6,
+  footer .col-md-3 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  footer ul {
+    padding-left: 0;
+  }
+
+  footer h5 {
+    font-size: 1rem;
+  }
+  #quantityCon{
+    width: 100%;
+  }
+   #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  #mobile-button>a{
+    width: 30%;
+  }
+
+}
+
+
+
+</style>
+
 <div class="jumbotron">
   <div class="container">
     <div>

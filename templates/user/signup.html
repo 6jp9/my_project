@@ -1,6 +1,55 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
+<style>
+
+      
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+.card {
+  max-width: fit-content;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+
+
+  h1 {
+    width: 85%;
+    font-size: 1.15rem;
+    padding: 0.4rem 0.8rem;
+  }
+    form>p>label{
+    display: block;
+  }
+  #id_address{
+    width: 85%;
+  }
+
+  @keyframes slideIn {
+    from {
+      left: 0;
+      opacity: 0;
+    }
+    to {
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+}
+
+</style>
 
 <div class="jumbotron py-4">
   <div class="container">

@@ -1,12 +1,76 @@
 <!DOCTYPE html>
 {% extends 'user/base.html' %}
 {% block body_block %}
+<style>
+
+      
+/* ============================================
+   RESPONSIVE BREAKPOINTS
+   ============================================ */
+.card {
+  max-width: fit-content;
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+
+  .card-title {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.75rem;
+    padding: 5px 8px;
+  }
+
+
+  h1 {
+    width: 85%;
+    font-size: 1.15rem;
+    padding: 0.4rem 0.8rem;
+  }
+    form>p>label{
+    display: block;
+  }
+  #id_address{
+    width: 85%;
+  }
+
+  @keyframes slideIn {
+    from {
+      left: 0;
+      opacity: 0;
+    }
+    to {
+      left: 0;
+      opacity: 1;
+    }
+  }
+
+  footer .col-md-6,
+  footer .col-md-3 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  footer ul {
+    padding-left: 0;
+  }
+
+  footer h5 {
+    font-size: 1rem;
+  }
+
+}
+
+</style>
+
 
 <div class="jumbotron py-4">
   <div class="container">
     <h1 class="mb-4 text-center">Update Details</h1>
-    <div id="nullDiv" class="d-flex justify-content-center" style="height: auto;">
-      <div class="card shadow-sm p-4 w-50">
+    <div id="nullDiv" class="d-flex justify-content-center" style="height: 80vh;">
+      <div class="card shadow-sm p-4 w-100">
         <form method="POST" novalidate>
           {% csrf_token %}
           {{ form.as_p }}

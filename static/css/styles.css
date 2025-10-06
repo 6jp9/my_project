@@ -291,3 +291,39 @@ footer ul li {
     align-items: center;
   }
 
+  
+@media (max-width:992px) {
+   #searchBar{
+  display: inline;
+  
+ }
+}
+
+@media (max-width:768px) {
+  
+  footer .col-md-6,
+  footer .col-md-3 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  footer ul {
+    padding-left: 0;
+  }
+
+  footer h5 {
+    font-size: 1rem;
+  }
+ #navBar{
+  margin: 20px;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+ }
+ #searchBar{
+  display: inline;
+  
+ }
+}
