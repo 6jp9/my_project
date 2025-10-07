@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.http import HttpResponse
+from django.utils import timezone
+from decimal import Decimal
 # Create your views here.
 
 # DOMAIN = "http://127.0.0.1:8000/"
@@ -99,17 +101,54 @@ def stripe_webhook(request):
             merchant_amount = merchant_amount,
         )
 
-        # cart_id = session['metadata'].get('cart_id')
         print("✅ Payments updated!!")
-        # you can fetch metadata like this:
         product = cart.product
         product.stock -= cart.quantity
         product.save()
         cart.delete()
+        print('✅ Cart and product updated')
+        merchant.total_revenue += Decimal(merchant_amount)
+        merchant.save()
+        print("✅ merchant revenue updated!!")
+
+
 
     elif event['type'] == 'checkout.session.async_payment_failed':
         session = event['data']['object']
-        # print("❌ Async payment failed:", session)
     else:
         print('Unhandled event type {}'.format(event['type']))
     return HttpResponse(status=200)
+
+from django.shortcuts import render, get_object_or_404
+from django.utils import timezone
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse
+import stripe
+
+
+
+@csrf_exempt
+def refund_payment(request, payment_id):
+    if request.method == "POST":
+        payment = get_object_or_404(Payments, payment_id=payment_id)
+        
+        # Create refund on Stripe
+        refund = stripe.Refund.create(payment_intent=payment.payment_id)
+
+            # Update order database
+        payment.order.status = "Canceled"
+        payment.order.save()
+        payment.is_refunded = True
+        payment.refund_id = refund.id
+        payment.refund_amount = refund.amount / 100  # convert cents to dollars
+        payment.refund_date = timezone.now()
+        payment.save()
+
+        # Update merchant revenue
+        merchant = payment.merchant
+        merchant.total_revenue -= Decimal(refund.amount) / 100
+        merchant.save()
+
+        print(f"✅ Refund processed successfully for {payment.payment_id}")
+        return render(request,'payments/payment_cancel.html', {"refund_id": refund.id})
+    return render(request,'payments/payment_cancel.html',{'refund_id':refund.id})

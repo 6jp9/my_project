@@ -141,7 +141,7 @@ h1 {
       <div class="filter-container">
         <select name="level" class="btn btn-light dropdown-toggle">
           <option value="All" {% if selected_level == 'All' %}selected{% endif %}>All</option>
-          <option value="Pending" {% if selected_level == 'Pending' %}selected{% endif %}>Ordered</option>
+          <option value="Ordered" {% if selected_level == 'Ordered' %}selected{% endif %}>Ordered</option>
           <option value="Canceled" {% if selected_level == 'Canceled' %}selected{% endif %}>Canceled</option>
         </select>
         <input type="submit" value="Filter" class="btn btn-warning">

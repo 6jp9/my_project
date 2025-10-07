@@ -66,13 +66,11 @@
                         <a href="/orders/" class="btn btn-outline-primary flex-fill">
                             <i class="bi bi-arrow-left"></i> Back to Orders
                         </a>
-                         {% if order.status == "pending" %}
-                            
-
-                            <form id="deleteForm" method="POST" action="#">
-  {% csrf_token %}
-  <button type="button" class="btn btn-outline-danger flex-fill" onclick="confirmDelete()"><i class="bi bi-x-circle"></i> Cancel Order </button>
-</form>
+                         {% if order.status == "Ordered" %}
+                        <form id="deleteForm" method="POST" action="{% url 'refund_payment' payment_id %}">
+                         {% csrf_token %}
+                        <button type="button" class="btn btn-outline-danger flex-fill" onclick="confirmDelete()"><i class="bi bi-x-circle"></i> Cancel Order </button>
+                        </form>
 
 <script>
 function confirmDelete() {

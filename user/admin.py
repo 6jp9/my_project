@@ -6,5 +6,5 @@ class Customer_admin(admin.ModelAdmin):
 admin.site.register(Customers,Customer_admin)
 
 class Merchant_admin(admin.ModelAdmin):
-    list_display = ['merchant_id','user','username','business_name','email','phone','address','created_at']
+    list_display = ['merchant_id','user','username','business_name','email','phone','address','created_at','total_revenue']
 admin.site.register(Merchants,Merchant_admin)

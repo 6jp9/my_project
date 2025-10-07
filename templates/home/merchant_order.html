@@ -2,51 +2,84 @@
 {% block body_block %}
 
 <div class="container mt-5">
-    <h2 class="mb-4">Orders Dashboard</h2>
+    <h1>Orders Dashboard</h1>
     <h4 class="text-success mb-4">Total Revenue: ₹ {{ total_revenue }}</h4>
 
-    {% if orders %}
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
-                <thead class="table-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        <th>Status</th>
-                        <th>Ordered On</th>
-                        <th>Buyer</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for order in orders %}
+    <h2 class="mb-4">Active Orders</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Payment Id</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Ordered On</th>
+                    <th>Buyer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if active_payments %}
+                    {% for payment in active_payments %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ order.product.name }}</td>
-                            <td>{{ order.quantity }}</td>
-                            <td>₹ {{ order.price }}</td>
-                            <td>
-                                {% if order.status == "Ordered" %}
-                                    <span class="badge bg-success">{{ order.status }}</span>
-                                {% elif order.status == "Canceled" %}
-                                    <span class="badge bg-danger">{{ order.status }}</span>
-                                {% else %}
-                                    <span class="badge bg-secondary">{{ order.status }}</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ order.created_at|date:"d M Y H:i" }}</td>
-                            <td>{{ order.customer.username }}</td>
+                            <td>{{ payment.payment_id }}</td>
+                            <td>{{ payment.order.product.name }}</td>
+                            <td>{{ payment.order.quantity }}</td>
+                            <td>₹ {{ payment.order.price }}</td>
+                            <td><span class="badge bg-success">{{ payment.order.status }}</span></td>
+                            <td>{{ payment.order.created_at|date:"d M Y H:i" }}</td>
+                            <td>{{ payment.order.customer.username }}</td>
                         </tr>
                     {% endfor %}
-                </tbody>
-            </table>
-            <div id="nullDiv"></div>
-        </div>
-    {% else %}
-    <div id="nullDiv">
-        <p class="text-muted">No orders yet.</p>
-        </div>
-    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No active orders</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+
+        <hr>
+
+        <h2 class="mb-4">Cancelled Orders</h2>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Payment Id</th>
+                    <th>Order Id</th>
+                    <th>Status</th>
+                    <th>Refund Id</th>
+                    <th>Refund Price</th>
+                    <th>Cancelled On</th>
+                    <th>Buyer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if canceled_payments %}
+                    {% for payment in canceled_payments %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ payment.payment_id|default:"N/A" }}</td>
+                            <td>{{ payment.order.order_id }}</td>
+                            <td>{{ payment.order.status }}</td>
+                            <td>{{ payment.refund_id|default:"N/A" }}</td>
+                            <td>₹ {{ payment.refund_amount|default:"0.00" }}</td>
+                            <td>{{ payment.refund_date|date:"d M Y H:i"|default:"N/A" }}</td>
+                            <td>{{ payment.order.customer.username }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center">No orders are refunded</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 </div>
+
 {% endblock %}

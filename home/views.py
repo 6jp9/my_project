@@ -8,6 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 from .serializers import ProductSerializer
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from payments.models import Payments
 # Create your views here.
 def home(request):
     query = request.GET.get('q', '')  # get search term, default empty
@@ -40,7 +41,9 @@ def order_dtils(request,order_id):
     customer = order.customer
     name = customer.first_name +'-'+ customer.last_name
     address = customer.address
-    return render(request,'home/order.html',{'order':order,'name':name,'address':address})
+    payment = Payments.objects.get(order_id=order.order_id)
+    payment_id = payment.payment_id
+    return render(request,'home/order.html',{'order':order,'name':name,'address':address,'payment_id':payment_id})
 
 @login_required
 def add_product(request,username):
@@ -105,10 +108,8 @@ def alter_product_dtls_form(request,product_id):
 @login_required
 def merchant_orders(request,merchant_id):
     merchant = Merchants.objects.get(merchant_id=merchant_id)
-    orders = Orders.objects.filter(merchant=merchant).order_by('-created_at')
-    total_revenue = 0
-    for order in orders:
-        if order.status=='Ordered':
-            total_revenue += order.price
-    return render(request,'home/merchant_order.html',{'orders':orders,'total_revenue':total_revenue})
+    active_payments = Payments.objects.filter(merchant_id=merchant_id, is_refunded=False)
+    canceled_payments = Payments.objects.filter(merchant_id=merchant_id, is_refunded=True)
+    total_revenue = merchant.total_revenue
+    return render(request,'home/merchant_order.html',{'total_revenue':total_revenue,'active_payments':active_payments,'canceled_payments':canceled_payments})
 

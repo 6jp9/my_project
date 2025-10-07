@@ -3,12 +3,19 @@
 {% block body_block %}
 <div class="jumbotron">
   <div class="container text-center mt-5">
+    {% if refund_id %}
+      <h1>Refund Successful!</h1> 
+    <div id="nullDiv">
+      <p class="lead mt-3" style="display: block;">Your refund was successful. <br> Your refund id: {{refund_id}}</p>
+    <a href="/" class="btn btn-warning mt-3">Home</a>
+    </div>
+    {% else %}
     <h1 class="text-danger">Payment Cancelled</h1>
     <div id="nullDiv">
-    <div>
     <p class="lead mt-3">Your payment was not completed. You can try again or contact support.</p>
     <a href="{% url 'buy_item' cart_id %}" class="btn btn-warning mt-3">Try Again</a>
-    </div></div>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

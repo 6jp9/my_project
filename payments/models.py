@@ -12,3 +12,9 @@ class Payments(models.Model):
     platform_cut = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     merchant_amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    # For issuing refunds
+    is_refunded = models.BooleanField(default=False)
+    refund_id = models.CharField(max_length=255, null=True, blank=True)
+    refund_amount = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    refund_date = models.DateTimeField(null=True, blank=True)
+
