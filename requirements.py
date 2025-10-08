@@ -1,0 +1,15 @@
+asgiref==3.10.0
+certifi==2025.10.5
+charset-normalizer==3.4.3
+decouple==0.0.7
+Django==5.2.7
+django-rest-framework==0.1.0
+djangorestframework==3.16.1
+idna==3.10
+mysqlclient==2.2.7
+requests==2.32.5
+sqlparse==0.5.3
+stripe==13.0.1
+typing_extensions==4.15.0
+tzdata==2025.2
+urllib3==2.5.0
