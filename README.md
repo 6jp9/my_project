@@ -173,7 +173,12 @@ Your Stripe payments and refunds will now be processed locally through Ngrok and
 
 ## 🖼️ Screenshots
 
-*(Add screenshots of your app interface here)*
+![Home](<Screenshot (189).png>)
+![User Sign-Up](<Screenshot (190).png>) 
+![Merchant Profile](<Screenshot (191).png>) 
+![Merchant Dashboard](<Screenshot (192).png>) 
+![Cart](<Screenshot (193).png>) 
+![Checkout](<Screenshot (194).png>) 
 
 ---
 
