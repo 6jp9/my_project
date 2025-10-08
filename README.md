@@ -7,7 +7,7 @@
 ![Ngrok](https://img.shields.io/badge/ngrok-local%20webhook-blueviolet)
 ![SMTP](https://img.shields.io/badge/email-OTP%20verification-yellow)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Issues](https://img.shields.io/github/issues/6jp9/ShopKart)
+![Issues](https://img.shields.io/github/issues/6jp9/Shop-Kart)
 
 
 **ShopKart (Django, Python, MySQL, Stripe API, HTML, CSS, Bootstrap, JavaScript, SMTP)**  
