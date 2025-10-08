@@ -50,7 +50,7 @@ A full-stack e-commerce platform for merchants and customers featuring secure St
    ```
 2. Navigate into the project folder:
    ```bash
-   cd Shop@JP
+   cd Shop-at-JP
    ```
 3. **Create a virtual environment** (optional but recommended):
    ```bash
