@@ -1,4 +1,4 @@
-# 🛍️ ShopKart
+# 🛍️ Shop@JP
 
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 ![Django](https://img.shields.io/badge/django-5.2-green)
@@ -7,10 +7,10 @@
 ![Ngrok](https://img.shields.io/badge/ngrok-local%20webhook-blueviolet)
 ![SMTP](https://img.shields.io/badge/email-OTP%20verification-yellow)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Issues](https://img.shields.io/github/issues/6jp9/Shop-Kart)
+![Issues](https://img.shields.io/github/issues/6jp9/Shop-at-JP)
 
 
-**ShopKart (Django, Python, MySQL, Stripe API, HTML, CSS, Bootstrap, JavaScript, SMTP)**  
+**Shop@JP (Django, Python, MySQL, Stripe API, HTML, CSS, Bootstrap, JavaScript, SMTP)**  
 A full-stack e-commerce platform for merchants and customers featuring secure Stripe payments, OTP email verification, order management, refunds, and responsive UI.
 
 ---
@@ -46,11 +46,11 @@ A full-stack e-commerce platform for merchants and customers featuring secure St
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/6jp9/Shop-Kart.git
+   git clone https://github.com/6jp9/Shop-at-JP.git
    ```
 2. Navigate into the project folder:
    ```bash
-   cd ShopKart
+   cd Shop@JP
    ```
 3. **Create a virtual environment** (optional but recommended):
    ```bash
