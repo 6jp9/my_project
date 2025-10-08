@@ -77,10 +77,6 @@ A full-stack e-commerce platform for merchants and customers featuring secure St
       STRIPE_PUBLISHABLE_KEY = "your-publishable-key"
       STRIPE_SECRET_KEY = "your-secret-key"
       ```
-   5. (Optional) If you are using a webhook, also copy the **Signing Secret** after creating the webhook endpoint and add it as:
-      ```python
-      STRIPE_WEBHOOK_SECRET = "your-signing-secret"
-      ```
 
 9. **Ngrok setup for Stripe Webhooks**:
    - Download Ngrok from [https://ngrok.com/](https://ngrok.com/) and sign up for a free account if you don’t have one.  
@@ -181,7 +177,7 @@ Your Stripe payments and refunds will now be processed locally through Ngrok and
 
 ---
 
-## 🌟 Future Improvements
+## 📦 Future Enhancements
 
 - 🔒 Customer password change & account settings
 - ⭐ Customer product reviews & ratings
@@ -223,5 +219,7 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ---
 
 ### 🌐 Connect
+For queries or feedback:  
+📧 Email: [Jaya Prakash](mailto:jayaprakash.peddi619@gmail.com)  
 Created by [Jaya Prakash](https://github.com/6jp9)  
 Made with ❤️ using Django + Stripe API + Ngrok
