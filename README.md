@@ -181,6 +181,22 @@ Your Stripe payments and refunds will now be processed locally through Ngrok and
 
 ---
 
+## 🌟 Future Improvements
+
+- 🔒 Customer password change & account settings
+- ⭐ Customer product reviews & ratings
+- 🎨 Better UI / UX enhancements
+- 🤖 AI Chatbot for customer support
+- 💰 Merchant revenue checkout (transfer to bank)
+- 🚚 Order tracking
+- 📦 Wishlist & favorites
+- 🔔 Email / push notifications for order updates
+- 🛍️ Promotions & discount codes
+- 🔄 Multi-currency support
+- 📊 Analytics dashboard for merchants
+
+---
+
 ## 🤝 Contributing
 
 1. Fork the repo  
