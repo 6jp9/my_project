@@ -85,7 +85,7 @@ def signup(request):
             # Send OTP to email
             send_mail(
                 subject='Shop-Kart Email Verification',
-                message = f"Hello {form.cleaned_data['username']},\n\nYour One-Time Password (OTP) for verification is:\n {otp} \n\n Please use this OTP to complete your verification process.\nImportant Notes:\n\n\tThis OTP is valid for 10 minutes only.\n\n\tDo not share this OTP with anyone.\n\nIf you did not request this, please ignore this email.\n\n\Thank you for using Shop-Kart!\nWe’re committed to keeping your account secure.\n\nBest regards,\nThe Shop-Kart Team",
+                message = f"Hello {form.cleaned_data['username']},\n\nYour One-Time Password (OTP) for verification is:\n\n {otp} \n\nPlease use this OTP to complete your verification process.\n\nImportant Notes:\n\t-This OTP is valid for 10 minutes only.\n\t-Do not share this OTP with anyone.\n\nIf you did not request this, please ignore this email.\n\nThank you for using Shop-Kart!\nWe’re committed to keeping your account secure.\n\nBest regards,\nThe Shop-Kart Team",
                 from_email='shopkart.jp@gmail.com',
                 recipient_list=[form.cleaned_data['email']],
                 fail_silently=False,
