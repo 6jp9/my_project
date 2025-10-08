@@ -4,16 +4,18 @@
 <div class="jumbotron">
     <div class="container">
         <h1>LogIn</h1>
-        <div id="nullDiv">
-        <form method="post">
+        <div id="nullDiv" >
+        <div class="card shadow-sm p-4 w-100" id="center" style="width: fit-content;">
+        <form method="post" style="height: auto; text-align: center;">
             {{form.as_p}}
             {% csrf_token %}
-
-            <input type="submit" class="btn btn-success " style="width: 100px;" value="Login">
-            <a href="/" class="btn btn-secondary" style="width: 100px;">Cancel</a>
-
+            <span>signup as New user?. <a href="/signup/">register</a></span>     
+            <div id="center">
+                <input type="submit" class="btn btn-success " style="width: 100px;" value="Login">
+                <a href="/" class="btn btn-secondary" style="width: 100px;">Cancel</a>
+            </div>
         </form>
 </div>
     </div>
-</div>
+</div></div>
 {% endblock %}

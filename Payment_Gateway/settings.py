@@ -161,9 +161,9 @@ STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
 STRIPE_WEBHOOK_SECRET = config("STRIPE_WEBHOOK_SECRET")
 
 #Authentications
-# REST_FRAMEWORK = {
-# 'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
-# 'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAdminUser',),
-# }
+REST_FRAMEWORK = {
+'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework.authentication.TokenAuthentication',),
+'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAdminUser',),
+}
 
 # from rest_framework.authentication import 

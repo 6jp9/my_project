@@ -124,31 +124,38 @@ from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import stripe
+from django.urls import reverse
 
 
 
 @csrf_exempt
 def refund_payment(request, payment_id):
-    if request.method == "POST":
-        payment = get_object_or_404(Payments, payment_id=payment_id)
-        
-        # Create refund on Stripe
-        refund = stripe.Refund.create(payment_intent=payment.payment_id)
+    try:
+        if request.method == "POST":
+            payment = get_object_or_404(Payments, payment_id=payment_id)
+
+            # Create refund on Stripe
+            refund = stripe.Refund.create(payment_intent=payment.payment_id)
 
             # Update order database
-        payment.order.status = "Canceled"
-        payment.order.save()
-        payment.is_refunded = True
-        payment.refund_id = refund.id
-        payment.refund_amount = refund.amount / 100  # convert cents to dollars
-        payment.refund_date = timezone.now()
-        payment.save()
+            payment.order.status = "Canceled"
+            payment.order.save()
+            payment.is_refunded = True
+            payment.refund_id = refund.id
+            payment.refund_amount = refund.amount / 100  # convert cents to dollars
+            payment.refund_date = timezone.now()
+            payment.save()
 
-        # Update merchant revenue
-        merchant = payment.merchant
-        merchant.total_revenue -= Decimal(refund.amount) / 100
-        merchant.save()
+            # Update merchant revenue
+            merchant = payment.merchant
+            merchant.total_revenue -= Decimal(refund.amount / 100)
+            merchant.save()
+            order = payment.order
+            product = order.product
+            product.stock += order.quantity
+            product.save()
 
-        print(f"✅ Refund processed successfully for {payment.payment_id}")
-        return render(request,'payments/payment_cancel.html', {"refund_id": refund.id})
-    return render(request,'payments/payment_cancel.html',{'refund_id':refund.id})
+            print(f"✅ Refund processed successfully for {payment.payment_id}")
+            return render(request,'payments/refund.html',{'refund_id':refund.id})
+    except:
+        return redirect('/orders')

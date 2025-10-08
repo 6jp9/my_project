@@ -11,9 +11,9 @@ from django.http import HttpResponse
 from payments.models import Payments
 # Create your views here.
 def home(request):
-    query = request.GET.get('q', '')  # get search term, default empty
+    query = request.GET.get('q', '')
     if query:
-        products = Products.objects.filter(name__icontains=query)  # case-insensitive search
+        products = Products.objects.filter(name__icontains=query)
     else:
         products = Products.objects.all()
     return render(request, 'home/home.html', {'products': products, 'query': query})
@@ -43,7 +43,7 @@ def order_dtils(request,order_id):
     address = customer.address
     payment = Payments.objects.get(order_id=order.order_id)
     payment_id = payment.payment_id
-    return render(request,'home/order.html',{'order':order,'name':name,'address':address,'payment_id':payment_id})
+    return render(request,'home/order.html',{'order':order,'name':name,'address':address,'payment':payment,'payment_id':payment_id})
 
 @login_required
 def add_product(request,username):

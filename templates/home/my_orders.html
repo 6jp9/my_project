@@ -84,14 +84,16 @@ h1 {
 
   .filter-container {
     flex-direction: column;
+    display: flex;
     gap: 6px;
+    width: 50%;
   }
 
   select.btn {
     width: 100%;
   }
 
-  .btn {
+  #btn {
     width: 100%;
     font-size: 0.85rem;
     padding: 6px 10px;
@@ -117,6 +119,7 @@ h1 {
   .card-title {
     font-size: 0.95rem;
   }
+
 }
 
 /* ===============================
@@ -131,6 +134,12 @@ h1 {
   .card img {
     height: 130px;
   }
+  #FDD{
+    width: 50%;
+  }
+  #FDD>select{
+    display: inline;
+  }
 }
 </style>
 
@@ -144,7 +153,7 @@ h1 {
           <option value="Ordered" {% if selected_level == 'Ordered' %}selected{% endif %}>Ordered</option>
           <option value="Canceled" {% if selected_level == 'Canceled' %}selected{% endif %}>Canceled</option>
         </select>
-        <input type="submit" value="Filter" class="btn btn-warning">
+        <input type="submit" value="Filter" id="btn" class="btn btn-warning">
       </div>
     </form>
     <hr>

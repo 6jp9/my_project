@@ -52,7 +52,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
+  flex-direction: column;
   padding: 1rem;
 }
 
@@ -71,6 +71,7 @@ h1 {
   left: 0;
   width: 100%;
 }
+
 
 @keyframes slideIn {
   from {
@@ -290,7 +291,11 @@ footer ul li {
     justify-content: center;
     align-items: center;
   }
-
+   #searchBar{
+  display: inline;
+  margin-left: 100px;
+  
+ }
   
 @media (max-width:992px) {
    #searchBar{
@@ -315,7 +320,7 @@ footer ul li {
     font-size: 1rem;
   }
  #navBar{
-  margin: 20px;
+  width: 100%;
   gap: 10px;
   display: flex;
   flex-direction: row;
@@ -324,6 +329,17 @@ footer ul li {
  }
  #searchBar{
   display: inline;
-  
  }
+}
+
+.errorlist{
+  color: red;
+  list-style: none;
+}
+
+#center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }

@@ -3,7 +3,13 @@
 {% block body_block %}
 
 <style>
-
+  #mobile-button{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
       
 /* ============================================
    RESPONSIVE BREAKPOINTS
@@ -80,10 +86,6 @@
     font-size: 0.9rem;
   }
 
-  .btn {
-    font-size: 0.75rem;
-    padding: 5px 8px;
-  }
     #mobile-button{
     width: fit-content;
   }
@@ -215,8 +217,8 @@
           {% endfor %}
         </div>
         {% else %}
-          <div id="nullDiv" class="text-center py-5">
-            <h3>Cart Is Empty....</h3>
+          <div class="text-center py-5">
+            <h3>Cart Is Empty....</h3><br>
             <a class="btn btn-info mt-3" href="/">Continue Shopping</a>
           </div>
         {% endif %}

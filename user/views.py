@@ -85,8 +85,8 @@ def signup(request):
             # Send OTP to email
             send_mail(
                 subject='Shop-Kart Email Verification',
-                message = f"Hello {form.cleaned_data['username']},\nYour OTP for verification is {otp}.",
-                from_email='jayaprakash1405401@gmail.com',
+                message = f"Hello {form.cleaned_data['username']},\n\nYour One-Time Password (OTP) for verification is:\n {otp} \n\n Please use this OTP to complete your verification process.\nImportant Notes:\n\n\tThis OTP is valid for 10 minutes only.\n\n\tDo not share this OTP with anyone.\n\nIf you did not request this, please ignore this email.\n\n\Thank you for using Shop-Kart!\nWe’re committed to keeping your account secure.\n\nBest regards,\nThe Shop-Kart Team",
+                from_email='shopkart.jp@gmail.com',
                 recipient_list=[form.cleaned_data['email']],
                 fail_silently=False,
             )
@@ -109,7 +109,8 @@ def customer_form(request,username):
         form = CustomerDetailsForm(request.POST,instance=temp)
         if form.is_valid():
             form.save()
-        return redirect('/profile')
+        next_url = request.POST.get('next', '/')
+        return redirect(next_url)
     return render(request,'user/add_dtls.html',{'form':form})
 
 def merchant_form(request,username):
