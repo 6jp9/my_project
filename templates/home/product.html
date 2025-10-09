@@ -17,10 +17,12 @@
 
             <!-- Price -->
             <h4 class="text-success fw-bold mb-2">₹.{{ product.price }}</h4>
-
+            {% if product.stock %}
             <!-- Stock -->
             <p class="text-muted small mb-3">In stock: {{ product.stock }}</p>
-
+            {% else %}
+            <p class="text-danger small mb-3 ">Out of stock</p>
+            {% endif %}
             <!-- Description -->
             <div class="bg-light p-3 rounded mb-4" id="product-description">
                 <strong>Note:</strong> {{ product.description }}
@@ -38,7 +40,7 @@
                 {% else %}
                 <!-- Add to Cart Form -->
                  <div >
-                    
+                    {% if product.stock %}
                 <form method="post" action="/cart/add/{{ product.product_id }}/" class="w-75" style="margin-bottom: 5px;">
                 {% csrf_token %}
                 <div class="input-group">
@@ -64,6 +66,9 @@
                 </a>
                 {% endif %}
                 </div>
+                {% else %}
+                <a class="btn btn-primary w-75" href="/" style="margin-bottom: 5px;">Back</a>
+                {% endif %}
                 {% endif %}
                 
 
@@ -77,6 +82,6 @@
             {% endif %}
             
         </div>
-    </div>
+    </div></div>
 </div></div>
 {% endblock %}

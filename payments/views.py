@@ -148,7 +148,7 @@ def refund_payment(request, payment_id):
 
             # Update merchant revenue
             merchant = payment.merchant
-            merchant.total_revenue -= Decimal(refund.amount / 100)
+            merchant.total_revenue -= payment.merchant_amount
             merchant.save()
             order = payment.order
             product = order.product

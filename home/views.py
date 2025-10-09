@@ -75,12 +75,15 @@ def product_dtls(request,product_id,cart_id=None):
 
 @login_required
 def buy_item(request,cart_id):
-    cart = Cart.objects.get(cart_id=cart_id)
-    buyer =  Customers.objects.get(customer_id = cart.customer.customer_id)
-    item = Products.objects.get(product_id = cart.product.product_id)
-    if buyer.address==None or buyer.phone==None:
-        return redirect('customer_dtls',username=buyer.username)
-    return render(request,'home/buyitem.html',{'item': item,"cart":cart ,'buyer':buyer})
+    try:
+        cart = Cart.objects.get(cart_id=cart_id)
+        buyer =  Customers.objects.get(customer_id = cart.customer.customer_id)
+        item = Products.objects.get(product_id = cart.product.product_id)
+        if buyer.address==None or buyer.phone==None:
+            return redirect('customer_dtls',username=buyer.username)
+        return render(request,'home/buyitem.html',{'item': item,"cart":cart ,'buyer':buyer})
+    except:
+        return redirect('/')
 
 
     
