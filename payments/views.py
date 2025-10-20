@@ -14,7 +14,7 @@ from decimal import Decimal
 # Create your views here.
 
 # DOMAIN = "http://127.0.0.1:8000/"
-DOMAIN = "https://phagolytic-intramolecular-evelin.ngrok-free.dev/"
+DOMAIN = ""
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @login_required
